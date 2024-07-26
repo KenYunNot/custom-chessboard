@@ -21,6 +21,7 @@ const Board = ({
             if (!cell) return null;
 
             const {x, y} = convertNotationToXY(cell.square);
+            
             return (
               <image
                 href={getPieceIconURL(cell.type, cell.color)}

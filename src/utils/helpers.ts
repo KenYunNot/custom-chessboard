@@ -27,11 +27,11 @@ export const getPieceIconURL = (type: PieceSymbol, color: Color) => {
   }
 }
 
-export const convertNotationToXY = (square: Square) => {
+export const convertNotationToXY = (square: Square, flipped=false) => {
   const [file, rank] = square.split('');
 
   return {
     x: file.charCodeAt(0) - 'a'.charCodeAt(0),
-    y: Number(rank) - 1,
+    y: flipped ? Number(rank) - 1 : 8 - Number(rank),
   }
 }
