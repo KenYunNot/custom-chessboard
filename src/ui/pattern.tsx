@@ -9,7 +9,8 @@ const Pattern = () => {
         const column = i%8;
         const isLight = Boolean((row + column) % 2);
         return (
-          <rect 
+          <rect
+            key={i}
             className='w-[12.5%] h-[12.5%]'
             x={`${12.5 * column}%`}
             y={`${12.5 * row}%`}
