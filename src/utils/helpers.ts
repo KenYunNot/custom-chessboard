@@ -27,11 +27,15 @@ export const getPieceIconURL = (type: PieceSymbol, color: Color) => {
   }
 }
 
-export const convertNotationToXY = (square: Square, flipped=false) => {
+export const convertNotationToRowCol = (square: Square, isFlipped: boolean) => {
   const [file, rank] = square.split('');
 
   return {
-    x: file.charCodeAt(0) - 'a'.charCodeAt(0),
-    y: flipped ? Number(rank) - 1 : 8 - Number(rank),
+    row: isFlipped 
+      ? 'h'.charCodeAt(0) - file.charCodeAt(0) 
+      : file.charCodeAt(0) - 'a'.charCodeAt(0),
+    col: isFlipped 
+      ? Number(rank) - 1 
+      : 8 - Number(rank),
   }
 }
