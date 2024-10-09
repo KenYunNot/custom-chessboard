@@ -17,17 +17,16 @@ export const fenToBoard = (fen: string): Array<Array<BoardCell>> => {
   const position = notationParts[0];
   const fenRows = position.split('/');
 
-  for (let i = 0; i < 8; i++) {
+  for (let row of fenRows) {
     let boardRow: Array<BoardCell> = [];
-    let fenRow = fenRows[i].split('');
-    for (let j = 0; j < 8; j++) {
-      if (Number(fenRow[j])) {
-        boardRow.push(...new Array(Number(fenRow[j])).fill(null) as Array<BoardCell>);
-        j += Number(fenRow[j]) - 1;
+    let tokens = row.split('');
+    for (let token of tokens) {
+      if (Number(token)) {
+        boardRow.push(...new Array(Number(token)).fill(null) as Array<BoardCell>);
       } else {
-        const square = `${files[j]}${ranks[i]}` as Square;
-        const type = fenRow[j].toLowerCase() as PieceSymbol;
-        const color = (fenRow[j].charCodeAt(0) >= 'a'.charCodeAt(0) ? 'b' : 'w') as Color;
+        const square = `${files[boardRow.length]}${ranks[board.length]}` as Square;
+        const type = token.toLowerCase() as PieceSymbol;
+        const color = (token.charCodeAt(0) >= 'a'.charCodeAt(0) ? 'b' : 'w') as Color;
         boardRow.push({
           square,
           type,
