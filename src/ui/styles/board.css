@@ -3,13 +3,7 @@
   background-size: 100%;
 }
 
-.piece {
-  position: absolute;
-  width: 12.5%;
-  height: 12.5%;
-}
-
-.piece.grabbing {
+.grabbing {
   cursor: grabbing;
   z-index: 2;
 }
