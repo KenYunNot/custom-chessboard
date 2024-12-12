@@ -1,23 +1,16 @@
 import React from "react";
-import { DEFAULT_POSITION } from "chess.js";
-import { fenToBoard } from "../utils/helpers";
-
-import '../styles/board.css';
+import { Chess, DEFAULT_POSITION } from "chess.js";
+import './styles/board.css';
 
 
-type BoardOffsets = {
-  x: number,
-  y: number,
-  width: number,
-}
-
-type BoardProps = {
-  fen?: string,
+const Board = ({ 
+  fen=DEFAULT_POSITION, 
+  onPieceDrop 
+} : {
+  fen: string;
   onPieceDrop: (source: string, target: string) => void,
-}
-
-const Board = ({ fen=DEFAULT_POSITION, onPieceDrop }: BoardProps) => {
-  const board = React.useMemo(() => fenToBoard(fen), [fen]);
+}) => {
+  const board = React.useMemo(() => new Chess(fen).board(), [fen]);
   const boardRef = React.useRef<HTMLDivElement | null>(null);
   const [from, setFrom] = React.useState<string>('');
   const [clickedPiece, setClickedPiece] = React.useState<HTMLDivElement | null>(null);
@@ -44,18 +37,11 @@ const Board = ({ fen=DEFAULT_POSITION, onPieceDrop }: BoardProps) => {
     }
   }
 
-  const handleOnMouseMove = (event: React.MouseEvent<HTMLDivElement>) => {
-    if (!clickedPiece) return;
-
-    const { x, y } = getClick(event.pageX, event.pageY);
-    const halfSquareWidth = (boardRef.current?.offsetWidth || 0) / 16;
-
-    clickedPiece!.style.transform = `translate(${x - halfSquareWidth}px, ${y - halfSquareWidth}px)`;
-  }
-
   const handleOnMouseDown = (event: React.MouseEvent<HTMLDivElement>) => {
     if (!(event.target instanceof HTMLDivElement)) return;
     if (!(event.target.classList.contains('piece'))) return;
+
+    console.log('mouse down piece');
 
     const { x, y, square } = getClick(event.pageX, event.pageY);
     const halfSquareWidth = (boardRef.current?.offsetWidth || 0) / 16;
@@ -65,8 +51,21 @@ const Board = ({ fen=DEFAULT_POSITION, onPieceDrop }: BoardProps) => {
     setFrom(square);
   }
 
+  const handleOnMouseMove = (event: React.MouseEvent<HTMLDivElement>) => {
+    if (!clickedPiece) return;
+
+    console.log('moving');
+
+    const { x, y } = getClick(event.pageX, event.pageY);
+    const halfSquareWidth = (boardRef.current?.offsetWidth || 0) / 16;
+
+    clickedPiece!.style.transform = `translate(${x - halfSquareWidth}px, ${y - halfSquareWidth}px)`;
+  }
+
   const handleOnMouseUp = (event: React.MouseEvent<HTMLDivElement>) => {
     if (!clickedPiece) return;
+
+    console.log('mouse up piece');
 
     const { square: to } = getClick(event.pageX, event.pageY);
 
@@ -85,7 +84,7 @@ const Board = ({ fen=DEFAULT_POSITION, onPieceDrop }: BoardProps) => {
       onMouseUp={handleOnMouseUp}
       onMouseMove={handleOnMouseMove}
     >
-      <div className="absolute w-full h-full">
+      <div className="w-full h-full">
         {board.map((row) => {
           return row.map((piece) => {
             if (!piece) return null;
@@ -101,7 +100,7 @@ const Board = ({ fen=DEFAULT_POSITION, onPieceDrop }: BoardProps) => {
             return (
               <div
                 key={piece.square}
-                className={`piece square-${col}${row} ${piece!.color}${piece!.type} hover:cursor-grab`}
+                className={`absolute w-[12.5%] h-[12.5%] square-${col}${row} ${piece!.color}${piece!.type} hover:cursor-grab`}
               />
             )
           });
