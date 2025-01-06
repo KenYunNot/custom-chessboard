@@ -3,265 +3,522 @@
   background-size: 100%;
 }
 
-.grabbing {
-  cursor: grabbing;
-  z-index: 2;
+.piece {
+  position: absolute;
+  width: 12.5%;
+  height: 12.5%;
 }
+
+.flipped.square-81 {  
+  transform: translate(700%, 700%);  
+}  
+
+.flipped.square-82 {  
+  transform: translate(600%, 700%);  
+}  
+
+.flipped.square-83 {  
+  transform: translate(500%, 700%);  
+}  
+
+.flipped.square-84 {  
+  transform: translate(400%, 700%);  
+}  
+
+.flipped.square-85 {  
+  transform: translate(300%, 700%);  
+}  
+
+.flipped.square-86 {  
+  transform: translate(200%, 700%);  
+}  
+
+.flipped.square-87 {  
+  transform: translate(100%, 700%);  
+}  
+
+.flipped.square-88 {  
+  transform: translate(0%, 700%);  
+}  
+
+.flipped.square-71 {  
+  transform: translate(700%, 600%);  
+}  
+
+.flipped.square-72 {  
+  transform: translate(600%, 600%);  
+}  
+
+.flipped.square-73 {  
+  transform: translate(500%, 600%);  
+}  
+
+.flipped.square-74 {  
+  transform: translate(400%, 600%);  
+}  
+
+.flipped.square-75 {  
+  transform: translate(300%, 600%);  
+}  
+
+.flipped.square-76 {  
+  transform: translate(200%, 600%);  
+}  
+
+.flipped.square-77 {  
+  transform: translate(100%, 600%);  
+}  
+
+.flipped.square-78 {  
+  transform: translate(0%, 600%);  
+}  
+
+.flipped.square-61 {  
+  transform: translate(700%, 500%);  
+}  
+
+.flipped.square-62 {  
+  transform: translate(600%, 500%);  
+}  
+
+.flipped.square-63 {  
+  transform: translate(500%, 500%);  
+}  
+
+.flipped.square-64 {  
+  transform: translate(400%, 500%);  
+}  
+
+.flipped.square-65 {  
+  transform: translate(300%, 500%);  
+}  
+
+.flipped.square-66 {  
+  transform: translate(200%, 500%);  
+}  
+
+.flipped.square-67 {  
+  transform: translate(100%, 500%);  
+}  
+
+.flipped.square-68 {  
+  transform: translate(0%, 500%);  
+}  
+
+.flipped.square-51 {  
+  transform: translate(700%, 400%);  
+}  
+
+.flipped.square-52 {  
+  transform: translate(600%, 400%);  
+}  
+
+.flipped.square-53 {  
+  transform: translate(500%, 400%);  
+}  
+
+.flipped.square-54 {  
+  transform: translate(400%, 400%);  
+}  
+
+.flipped.square-55 {  
+  transform: translate(300%, 400%);  
+}  
+
+.flipped.square-56 {  
+  transform: translate(200%, 400%);  
+}  
+
+.flipped.square-57 {  
+  transform: translate(100%, 400%);  
+}  
+
+.flipped.square-58 {  
+  transform: translate(0%, 400%);  
+}  
+
+.flipped.square-41 {  
+  transform: translate(700%, 300%);  
+}  
+
+.flipped.square-42 {  
+  transform: translate(600%, 300%);  
+}  
+
+.flipped.square-43 {  
+  transform: translate(500%, 300%);  
+}  
+
+.flipped.square-44 {  
+  transform: translate(400%, 300%);  
+}  
+
+.flipped.square-45 {  
+  transform: translate(300%, 300%);  
+}  
+
+.flipped.square-46 {  
+  transform: translate(200%, 300%);  
+}  
+
+.flipped.square-47 {  
+  transform: translate(100%, 300%);  
+}  
+
+.flipped.square-48 {  
+  transform: translate(0%, 300%);  
+}  
+
+.flipped.square-31 {  
+  transform: translate(700%, 200%);  
+}  
+
+.flipped.square-32 {  
+  transform: translate(600%, 200%);  
+}  
+
+.flipped.square-33 {  
+  transform: translate(500%, 200%);  
+}  
+
+.flipped.square-34 {  
+  transform: translate(400%, 200%);  
+}  
+
+.flipped.square-35 {  
+  transform: translate(300%, 200%);  
+}  
+
+.flipped.square-36 {  
+  transform: translate(200%, 200%);  
+}  
+
+.flipped.square-37 {  
+  transform: translate(100%, 200%);  
+}  
+
+.flipped.square-38 {  
+  transform: translate(0%, 200%);  
+}  
+
+.flipped.square-21 {  
+  transform: translate(700%, 100%);  
+}  
+
+.flipped.square-22 {  
+  transform: translate(600%, 100%);  
+}  
+
+.flipped.square-23 {  
+  transform: translate(500%, 100%);  
+}  
+
+.flipped.square-24 {  
+  transform: translate(400%, 100%);  
+}  
+
+.flipped.square-25 {  
+  transform: translate(300%, 100%);  
+}  
+
+.flipped.square-26 {  
+  transform: translate(200%, 100%);  
+}  
+
+.flipped.square-27 {  
+  transform: translate(100%, 100%);  
+}  
+
+.flipped.square-28 {  
+  transform: translate(0%, 100%);  
+}  
+
+.flipped.square-11 {  
+  transform: translate(700%, 0%);  
+}  
+
+.flipped.square-12 {  
+  transform: translate(600%, 0%);  
+}  
+
+.flipped.square-13 {  
+  transform: translate(500%, 0%);  
+}  
+
+.flipped.square-14 {  
+  transform: translate(400%, 0%);  
+}  
+
+.flipped.square-15 {  
+  transform: translate(300%, 0%);  
+}  
+
+.flipped.square-16 {  
+  transform: translate(200%, 0%);  
+}  
+
+.flipped.square-17 {  
+  transform: translate(100%, 0%);  
+}  
+
+.flipped.square-18 {  
+  transform: translate(0%, 0%);  
+}  
+
+.square-81 {  
+  transform: translate(0%, 0%);  
+}  
+
+.square-82 {  
+  transform: translate(100%, 0%);  
+}  
+
+.square-83 {  
+  transform: translate(200%, 0%);  
+}  
+
+.square-84 {  
+  transform: translate(300%, 0%);  
+}  
+
+.square-85 {  
+  transform: translate(400%, 0%);  
+}  
+
+.square-86 {  
+  transform: translate(500%, 0%);  
+}  
+
+.square-87 {  
+  transform: translate(600%, 0%);  
+}  
+
+.square-88 {  
+  transform: translate(700%, 0%);  
+}  
+
+.square-71 {  
+  transform: translate(0%, 100%);  
+}  
+
+.square-72 {  
+  transform: translate(100%, 100%);  
+}  
+
+.square-73 {  
+  transform: translate(200%, 100%);  
+}  
+
+.square-74 {  
+  transform: translate(300%, 100%);  
+}  
+
+.square-75 {  
+  transform: translate(400%, 100%);  
+}  
+
+.square-76 {  
+  transform: translate(500%, 100%);  
+}  
+
+.square-77 {  
+  transform: translate(600%, 100%);  
+}  
+
+.square-78 {  
+  transform: translate(700%, 100%);  
+}  
+
+.square-61 {  
+  transform: translate(0%, 200%);  
+}  
+
+.square-62 {  
+  transform: translate(100%, 200%);  
+}  
+
+.square-63 {  
+  transform: translate(200%, 200%);  
+}  
+
+.square-64 {  
+  transform: translate(300%, 200%);  
+}  
+
+.square-65 {  
+  transform: translate(400%, 200%);  
+}  
+
+.square-66 {  
+  transform: translate(500%, 200%);  
+}  
+
+.square-67 {  
+  transform: translate(600%, 200%);  
+}  
+
+.square-68 {  
+  transform: translate(700%, 200%);  
+}  
+
+.square-51 {  
+  transform: translate(0%, 300%);  
+}  
+
+.square-52 {  
+  transform: translate(100%, 300%);  
+}  
+
+.square-53 {  
+  transform: translate(200%, 300%);  
+}  
+
+.square-54 {  
+  transform: translate(300%, 300%);  
+}  
+
+.square-55 {  
+  transform: translate(400%, 300%);  
+}  
+
+.square-56 {  
+  transform: translate(500%, 300%);  
+}  
+
+.square-57 {  
+  transform: translate(600%, 300%);  
+}  
+
+.square-58 {  
+  transform: translate(700%, 300%);  
+}  
+
+.square-41 {  
+  transform: translate(0%, 400%);  
+}  
+
+.square-42 {  
+  transform: translate(100%, 400%);  
+}  
+
+.square-43 {  
+  transform: translate(200%, 400%);  
+}  
+
+.square-44 {  
+  transform: translate(300%, 400%);  
+}  
+
+.square-45 {  
+  transform: translate(400%, 400%);  
+}  
+
+.square-46 {  
+  transform: translate(500%, 400%);  
+}  
+
+.square-47 {  
+  transform: translate(600%, 400%);  
+}  
 
-.square-00 {
-  transform: translate(0%, 0%);
-}
-
-.square-01 {
-  transform: translate(0%, 100%);
-}
-
-.square-02 {
-  transform: translate(0%, 200%);
-}
-
-.square-03 {
-  transform: translate(0%, 300%);
-}
-
-.square-04 {
-  transform: translate(0%, 400%);
-}
-
-.square-05 {
-  transform: translate(0%, 500%);
-}
-
-.square-06 {
-  transform: translate(0%, 600%);
-}
-
-.square-07 {
-  transform: translate(0%, 700%);
-}
-
-.square-10 {
-  transform: translate(100%, 0%);
-}
-
-.square-11 {
-  transform: translate(100%, 100%);
-}
-
-.square-12 {
-  transform: translate(100%, 200%);
-}
-
-.square-13 {
-  transform: translate(100%, 300%);
-}
-
-.square-14 {
-  transform: translate(100%, 400%);
-}
-
-.square-15 {
-  transform: translate(100%, 500%);
-}
-
-.square-16 {
-  transform: translate(100%, 600%);
-}
-
-.square-17 {
-  transform: translate(100%, 700%);
-}
-
-.square-20 {
-  transform: translate(200%, 0%);
-}
-
-.square-21 {
-  transform: translate(200%, 100%);
-}
-
-.square-22 {
-  transform: translate(200%, 200%);
-}
-
-.square-23 {
-  transform: translate(200%, 300%);
-}
-
-.square-24 {
-  transform: translate(200%, 400%);
-}
-
-.square-25 {
-  transform: translate(200%, 500%);
-}
-
-.square-26 {
-  transform: translate(200%, 600%);
-}
-
-.square-27 {
-  transform: translate(200%, 700%);
-}
-
-.square-30 {
-  transform: translate(300%, 0%);
-}
-
-.square-31 {
-  transform: translate(300%, 100%);
-}
+.square-48 {  
+  transform: translate(700%, 400%);  
+}  
 
-.square-32 {
-  transform: translate(300%, 200%);
-}
-
-.square-33 {
-  transform: translate(300%, 300%);
-}
-
-.square-34 {
-  transform: translate(300%, 400%);
-}
-
-.square-35 {
-  transform: translate(300%, 500%);
-}
-
-.square-36 {
-  transform: translate(300%, 600%);
-}
-
-.square-37 {
-  transform: translate(300%, 700%);
-}
-
-.square-40 {
-  transform: translate(400%, 0%);
-}
-
-.square-41 {
-  transform: translate(400%, 100%);
-}
-
-.square-42 {
-  transform: translate(400%, 200%);
-}
-
-.square-43 {
-  transform: translate(400%, 300%);
-}
-
-.square-44 {
-  transform: translate(400%, 400%);
-}
-
-.square-45 {
-  transform: translate(400%, 500%);
-}
-
-.square-46 {
-  transform: translate(400%, 600%);
-}
+.square-31 {  
+  transform: translate(0%, 500%);  
+}  
 
-.square-47 {
-  transform: translate(400%, 700%);
-}
-
-.square-50 {
-  transform: translate(500%, 0%);
-}
+.square-32 {  
+  transform: translate(100%, 500%);  
+}  
 
-.square-51 {
-  transform: translate(500%, 100%);
-}
-
-.square-52 {
-  transform: translate(500%, 200%);
-}
+.square-33 {  
+  transform: translate(200%, 500%);  
+}  
 
-.square-53 {
-  transform: translate(500%, 300%);
-}
+.square-34 {  
+  transform: translate(300%, 500%);  
+}  
 
-.square-54 {
-  transform: translate(500%, 400%);
-}
+.square-35 {  
+  transform: translate(400%, 500%);  
+}  
 
-.square-55 {
-  transform: translate(500%, 500%);
-}
+.square-36 {  
+  transform: translate(500%, 500%);  
+}  
 
-.square-56 {
-  transform: translate(500%, 600%);
-}
+.square-37 {  
+  transform: translate(600%, 500%);  
+}  
 
-.square-57 {
-  transform: translate(500%, 700%);
-}
+.square-38 {  
+  transform: translate(700%, 500%);  
+}  
 
-.square-60 {
-  transform: translate(600%, 0%);
-}
+.square-21 {  
+  transform: translate(0%, 600%);  
+}  
 
-.square-61 {
-  transform: translate(600%, 100%);
-}
+.square-22 {  
+  transform: translate(100%, 600%);  
+}  
 
-.square-62 {
-  transform: translate(600%, 200%);
-}
+.square-23 {  
+  transform: translate(200%, 600%);  
+}  
 
-.square-63 {
-  transform: translate(600%, 300%);
-}
+.square-24 {  
+  transform: translate(300%, 600%);  
+}  
 
-.square-64 {
-  transform: translate(600%, 400%);
-}
+.square-25 {  
+  transform: translate(400%, 600%);  
+}  
 
-.square-65 {
-  transform: translate(600%, 500%);
-}
+.square-26 {  
+  transform: translate(500%, 600%);  
+}  
 
-.square-66 {
-  transform: translate(600%, 600%);
-}
+.square-27 {  
+  transform: translate(600%, 600%);  
+}  
 
-.square-67 {
-  transform: translate(600%, 700%);
-}
+.square-28 {  
+  transform: translate(700%, 600%);  
+}  
 
-.square-70 {
-  transform: translate(700%, 0%);
-}
+.square-11 {  
+  transform: translate(0%, 700%);  
+}  
 
-.square-71 {
-  transform: translate(700%, 100%);
-}
+.square-12 {  
+  transform: translate(100%, 700%);  
+}  
 
-.square-72 {
-  transform: translate(700%, 200%);
-}
+.square-13 {  
+  transform: translate(200%, 700%);  
+}  
 
-.square-73 {
-  transform: translate(700%, 300%);
-}
+.square-14 {  
+  transform: translate(300%, 700%);  
+}  
 
-.square-74 {
-  transform: translate(700%, 400%);
-}
+.square-15 {  
+  transform: translate(400%, 700%);  
+}  
 
-.square-75 {
-  transform: translate(700%, 500%);
-}
+.square-16 {  
+  transform: translate(500%, 700%);  
+}  
 
-.square-76 {
-  transform: translate(700%, 600%);
-}
+.square-17 {  
+  transform: translate(600%, 700%);  
+}  
 
-.square-77 {
-  transform: translate(700%, 700%);
+.square-18 {  
+  transform: translate(700%, 700%);  
 }
 
 .bb {
