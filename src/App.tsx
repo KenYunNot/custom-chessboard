@@ -1,6 +1,7 @@
 import React from 'react';
 import { Chess } from 'chess.js';
 import Board from "./ui/board";
+import MoveHistory from './ui/move-history';
 
 
 type Move = {
@@ -31,6 +32,7 @@ function App() {
     <div className="App">
       <div className="w-full h-screen flex justify-center items-center p-20">
         <Board fen={fen} onPieceDrop={onPieceDrop}/>
+        <MoveHistory history={chess.history()} />
       </div>
     </div>
   );
