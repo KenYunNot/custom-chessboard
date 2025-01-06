@@ -1,42 +1,22 @@
-import type { PieceSymbol, Color, Square } from 'chess.js'
+const isLowerCase = (s: string) => {
+  return s.toLowerCase() === s;
+}
 
-
-export type BoardCell = {
-  square: Square,
-  type: PieceSymbol,
-  color: Color,
-} | null;
-
-
-export const fenToBoard = (fen: string): Array<Array<BoardCell>> => {
-  const board: Array<Array<BoardCell>> = [];
-  const ranks = [8, 7, 6, 5, 4, 3, 2, 1];
-  const files = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
-
-  const notationParts = fen.split(' ');
-  const position = notationParts[0];
-  const fenRows = position.split('/');
-
-  for (let row of fenRows) {
-    let boardRow: Array<BoardCell> = [];
-    let tokens = row.split('');
-    for (let token of tokens) {
-      if (Number(token)) {
-        boardRow.push(...new Array(Number(token)).fill(null) as Array<BoardCell>);
+export const convertFenToBoard = (fen: string) => {
+  return fen.split(' ')[0].split('/').map((line, row) => {
+    const files = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
+    const pieces = [];
+    for (let token of line) {
+      if (Number.isNaN(Number(token))) {
+        pieces.push({
+          square: `${files[pieces.length]}${8-row}`,
+          type: token.toLowerCase(),
+          color: isLowerCase(token) ? 'b' : 'w',
+        })
       } else {
-        const square = `${files[boardRow.length]}${ranks[board.length]}` as Square;
-        const type = token.toLowerCase() as PieceSymbol;
-        const color = (token.charCodeAt(0) >= 'a'.charCodeAt(0) ? 'b' : 'w') as Color;
-        boardRow.push({
-          square,
-          type,
-          color,
-        });
+        pieces.push(...Array.from(Array(Number(token)), _ => null));
       }
     }
-
-    board.push(boardRow); 
-  }
-
-  return board;
+    return pieces;
+  });
 }
