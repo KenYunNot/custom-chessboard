@@ -1,3 +1,6 @@
+import type { Square, PieceSymbol, Color } from "chess.js";
+
+
 const isLowerCase = (s: string) => {
   return s.toLowerCase() === s;
 }
@@ -9,9 +12,9 @@ export const convertFenToBoard = (fen: string) => {
     for (let token of line) {
       if (Number.isNaN(Number(token))) {
         pieces.push({
-          square: `${files[pieces.length]}${8-row}`,
-          type: token.toLowerCase(),
-          color: isLowerCase(token) ? 'b' : 'w',
+          square: `${files[pieces.length]}${8-row}` as Square,
+          type: token.toLowerCase() as PieceSymbol,
+          color: isLowerCase(token) ? 'b' : 'w' as Color,
         })
       } else {
         pieces.push(...Array.from(Array(Number(token)), _ => null));
