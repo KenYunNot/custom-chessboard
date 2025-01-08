@@ -21,14 +21,14 @@ const Board = ({
     <div
       id='board'
       ref={boardRef}
-      className="flex flex-wrap aspect-square w-full max-w-5xl h-auto bg-gray-100"
+      className="flex flex-wrap aspect-square w-full max-w-5xl h-auto"
     >
       {position.map((row, r) => {
         return row.map((piece, c) => {
           return (
             <Square
-              row={8-r}
-              col={c+1}
+              row={r}
+              col={c}
             >
               {piece ? <Piece key={`${r}${c}`} {...piece} /> : null}
             </Square>
