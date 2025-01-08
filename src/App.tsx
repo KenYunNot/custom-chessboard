@@ -4,6 +4,8 @@ import Board from "./ui/board";
 import Chessboard from 'chessboardjsx';
 import MoveHistory from './ui/move-history';
 import { DndContext } from '@dnd-kit/core';
+import { restrictToBoard } from './utils/dnd-modifiers';
+
 
 type Move = {
   from: string,
@@ -32,7 +34,7 @@ function App() {
   return (
     <div className="App">
       <div className="w-full h-screen flex justify-center items-center p-20">
-        <DndContext modifiers={[]}>
+        <DndContext modifiers={[restrictToBoard]}>
           <Board fen={fen} onPieceDrop={onPieceDrop}/>
         </DndContext>
         <Chessboard position='start' />

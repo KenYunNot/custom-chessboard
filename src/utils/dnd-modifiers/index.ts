@@ -1,0 +1,1 @@
+export { restrictToBoard } from './restrictToBoard'
