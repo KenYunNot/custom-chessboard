@@ -1,111 +1,40 @@
 import React from "react";
-import { Chess, DEFAULT_POSITION } from "chess.js";
+import Piece from "./piece";
+import Square from "./square";
+import { convertFenToBoard } from "../utils/helpers";
+
 import './styles/board.css';
 
 
 const Board = ({ 
-  fen=DEFAULT_POSITION, 
+  fen='rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1',
   onPieceDrop 
 } : {
-  fen: string;
+  fen?: string;
   onPieceDrop: (source: string, target: string) => void,
 }) => {
-  const board = React.useMemo(() => new Chess(fen).board(), [fen]);
-  const boardRef = React.useRef<HTMLDivElement | null>(null);
-  const [from, setFrom] = React.useState<string>('');
-  const [clickedPiece, setClickedPiece] = React.useState<HTMLDivElement | null>(null);
+  const position = convertFenToBoard(fen);
   const [isFlipped, setIsFlipped] = React.useState(false);
-
-  const getClick = (absoluteX: number, absoluteY: number) => {
-    const offsetLeft = boardRef.current?.offsetLeft || 0;
-    const offsetTop = boardRef.current?.offsetTop || 0;
-    const offsetWidth = boardRef.current?.offsetWidth || 0
-
-    const relativeX = absoluteX - offsetLeft;
-    const relativeY = absoluteY - offsetTop;
-    const file = isFlipped
-      ? String.fromCharCode('h'.charCodeAt(0) - Math.floor(relativeX / offsetWidth / 0.125))
-      : String.fromCharCode('a'.charCodeAt(0) + Math.floor(relativeX / offsetWidth / 0.125));
-    const rank = isFlipped
-      ? 1 + Math.floor(relativeY / offsetWidth / 0.125)
-      : 8 - Math.floor(relativeY / offsetWidth / 0.125);
-    
-    return {
-      x: relativeX, 
-      y: relativeY,
-      square: `${file}${rank}`
-    }
-  }
-
-  const handleOnMouseDown = (event: React.MouseEvent<HTMLDivElement>) => {
-    if (!(event.target instanceof HTMLDivElement)) return;
-    if (!(event.target.classList.contains('piece'))) return;
-
-    console.log('mouse down piece');
-
-    const { x, y, square } = getClick(event.pageX, event.pageY);
-    const halfSquareWidth = (boardRef.current?.offsetWidth || 0) / 16;
-
-    event.target.style.transform = `translate(${x - halfSquareWidth}px, ${y - halfSquareWidth}px)`;
-    setClickedPiece(event.target);
-    setFrom(square);
-  }
-
-  const handleOnMouseMove = (event: React.MouseEvent<HTMLDivElement>) => {
-    if (!clickedPiece) return;
-
-    console.log('moving');
-
-    const { x, y } = getClick(event.pageX, event.pageY);
-    const halfSquareWidth = (boardRef.current?.offsetWidth || 0) / 16;
-
-    clickedPiece!.style.transform = `translate(${x - halfSquareWidth}px, ${y - halfSquareWidth}px)`;
-  }
-
-  const handleOnMouseUp = (event: React.MouseEvent<HTMLDivElement>) => {
-    if (!clickedPiece) return;
-
-    console.log('mouse up piece');
-
-    const { square: to } = getClick(event.pageX, event.pageY);
-
-    onPieceDrop(from, to);
-
-    clickedPiece.style.transform = '';
-    setClickedPiece(null);
-  }
+  const boardRef = React.useRef<HTMLDivElement | null>(null);
 
   return (
     <div
       id='board'
       ref={boardRef}
-      className="relative aspect-square w-auto h-full bg-gray-100"
-      onMouseDown={handleOnMouseDown}
-      onMouseUp={handleOnMouseUp}
-      onMouseMove={handleOnMouseMove}
+      className="flex flex-wrap aspect-square w-full max-w-5xl h-auto bg-gray-100"
     >
-      <div className="w-full h-full">
-        {board.map((row) => {
-          return row.map((piece) => {
-            if (!piece) return null;
-
-            const [file, rank] = piece!.square.split('');
-            const col = isFlipped 
-              ? 'h'.charCodeAt(0) - file.charCodeAt(0) 
-              : file.charCodeAt(0) - 'a'.charCodeAt(0);
-            const row = isFlipped 
-              ? Number(rank) - 1 
-              : 8 - Number(rank);
-
-            return (
-              <div
-                key={piece.square}
-                className={`absolute w-[12.5%] h-[12.5%] square-${col}${row} ${piece!.color}${piece!.type} hover:cursor-grab`}
-              />
-            )
-          });
-        })}
-      </div>
+      {position.map((row, r) => {
+        return row.map((piece, c) => {
+          return (
+            <Square
+              row={8-r}
+              col={c+1}
+            >
+              {piece ? <Piece key={`${r}${c}`} {...piece} /> : null}
+            </Square>
+          )
+        })
+      })}
     </div>
   );
 };
