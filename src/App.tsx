@@ -1,8 +1,9 @@
 import React from 'react';
 import { Chess } from 'chess.js';
 import Board from "./ui/board";
+import Chessboard from 'chessboardjsx';
 import MoveHistory from './ui/move-history';
-
+import { DndContext } from '@dnd-kit/core';
 
 type Move = {
   from: string,
@@ -31,8 +32,11 @@ function App() {
   return (
     <div className="App">
       <div className="w-full h-screen flex justify-center items-center p-20">
-        <Board fen={fen} onPieceDrop={onPieceDrop}/>
-        <MoveHistory history={chess.history()} />
+        <DndContext modifiers={[]}>
+          <Board fen={fen} onPieceDrop={onPieceDrop}/>
+        </DndContext>
+        <Chessboard position='start' />
+        {/* <MoveHistory history={chess.history()} /> */}
       </div>
     </div>
   );
