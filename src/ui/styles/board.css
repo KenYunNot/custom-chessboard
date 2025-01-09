@@ -1,3 +1,8 @@
+#board {
+  background-image: url('/public/board-pattern.png');
+  background-size: 100%;
+}
+
 .square {
   width: 12.5%;
   height: 12.5%;
@@ -5,7 +10,10 @@
 }
 
 .piece {
+  width: 100%;
+  height: 100%;
   background-size: 100%;
+  background-position: center;
 }
 
 .bb {
