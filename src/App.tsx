@@ -3,9 +3,6 @@ import { Chess } from 'chess.js';
 import Board from "./ui/board";
 import Chessboard from 'chessboardjsx';
 import MoveHistory from './ui/move-history';
-import { DndContext } from '@dnd-kit/core';
-import { snapCenterToCursor } from '@dnd-kit/modifiers';
-import { restrictToBoard } from './utils/dnd-modifiers';
 
 
 type Move = {
@@ -35,9 +32,7 @@ function App() {
   return (
     <div className="App">
       <div className="w-full h-screen flex justify-center items-center p-20">
-        <DndContext modifiers={[restrictToBoard, snapCenterToCursor]}>
-          <Board fen={fen} onPieceDrop={onPieceDrop}/>
-        </DndContext>
+        <Board fen={fen} onPieceDrop={onPieceDrop}/>
         <Chessboard position='start' />
         {/* <MoveHistory history={chess.history()} /> */}
       </div>

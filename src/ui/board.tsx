@@ -2,6 +2,9 @@ import React from "react";
 import Piece from "./piece";
 import Square from "./square";
 import { convertFenToBoard } from "../utils/helpers";
+import { restrictToBoard } from "../utils/dnd-modifiers/restrictToBoard";
+import { DndContext } from "@dnd-kit/core";
+import { snapCenterToCursor } from "@dnd-kit/modifiers";
 
 import './styles/board.css';
 
@@ -18,24 +21,26 @@ const Board = ({
   const boardRef = React.useRef<HTMLDivElement | null>(null);
 
   return (
-    <div
-      id='board'
-      ref={boardRef}
-      className="flex flex-wrap aspect-square w-full max-w-5xl h-auto"
-    >
-      {position.map((row, r) => {
-        return row.map((piece, c) => {
-          return (
-            <Square
-              row={r}
-              col={c}
-            >
-              {piece ? <Piece key={`${r}${c}`} {...piece} /> : null}
-            </Square>
-          )
-        })
-      })}
-    </div>
+    <DndContext modifiers={[restrictToBoard, snapCenterToCursor]}>
+      <div
+        id='board'
+        ref={boardRef}
+        className="flex flex-wrap aspect-square w-full max-w-5xl h-auto"
+      >
+        {position.map((row, r) => {
+          return row.map((piece, c) => {
+            return (
+              <Square
+                row={r}
+                col={c}
+              >
+                {piece ? <Piece key={`${r}${c}`} {...piece} /> : null}
+              </Square>
+            )
+          })
+        })}
+      </div>
+    </DndContext>
   );
 };
 

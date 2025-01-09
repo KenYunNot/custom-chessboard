@@ -1,6 +1,7 @@
 import type { Modifier } from "@dnd-kit/core"
 import type { ClientRect } from "@dnd-kit/core";
-import { restrictToBoundingRect } from "./utilities";
+import { restrictToBoundingRect } from "./utilities/restrictToBoundingRect";
+
 
 export const restrictToBoard: Modifier = ({
   transform,
