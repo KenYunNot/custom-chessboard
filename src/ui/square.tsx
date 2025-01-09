@@ -12,7 +12,6 @@ type SquareProps = {
 const Square = ({
   row,
   col,
-  
   children,
 }: SquareProps) => {
   const { setNodeRef, isOver } = useDroppable({
@@ -20,13 +19,9 @@ const Square = ({
   })
 
   return (
-    <div ref={setNodeRef} className={cn(`square ${8-row}${col+1}`, {
-      'bg-[#ebecd0]' : (row + col) % 2 === 0, // even squares are light square
-      'bg-[#749552]' : (row + col) % 2 === 1, // odd squares are dark squares
-    }, 
-    isOver && {
-      'shadow-[0_0_0_4px_inset_#d1d5db]' : (row + col) % 2 === 0, // even squares are light square
-      'shadow-[0_0_0_4px_inset_#e5e7eb]' : (row + col) % 2 === 1, // odd squares are dark squares
+    <div ref={setNodeRef} className={cn(`square ${row}${col}`, isOver && {
+      'shadow-[0_0_0_4px_inset_#e5e7eb]' : (row + col) % 2 === 0, // odd squares are light squares
+      'shadow-[0_0_0_4px_inset_#d1d5db]' : (row + col) % 2 === 1, // even squares are dark square
     })}>
       {children}
     </div>

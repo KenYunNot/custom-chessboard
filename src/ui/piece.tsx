@@ -25,7 +25,7 @@ const Piece = ({
       ref={setNodeRef}
       style={{ transform: CSS.Translate.toString(transform) }}
       id={square}
-      className={`piece ${color}${type} w-full h-full`}
+      className={`piece ${color}${type}`}
     />
   )
 }
