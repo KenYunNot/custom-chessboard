@@ -5,21 +5,28 @@ const isLowerCase = (s: string) => {
   return s.toLowerCase() === s;
 }
 
-export const convertFenToBoard = (fen: string) => {
+type BoardSquare = {
+  square: Square;
+  type?: PieceSymbol,
+  color?: Color,
+}
+export const convertFenToBoard = (fen: string): Array<Array<BoardSquare>> => {
   return fen.split(' ')[0].split('/').map((line, row) => {
     const files = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
-    const pieces = [];
+    const squares = [];
     for (let token of line) {
       if (Number.isNaN(Number(token))) {
-        pieces.push({
-          square: `${files[pieces.length]}${8-row}` as Square,
+        squares.push({
+          square: `${files[squares.length]}${8-row}` as Square,
           type: token.toLowerCase() as PieceSymbol,
           color: isLowerCase(token) ? 'b' : 'w' as Color,
         })
       } else {
-        pieces.push(...Array.from(Array(Number(token)), _ => null));
+        squares.push(...Array.from(Array(Number(token)), (_, i) => ({
+          square: `${files[squares.length+i]}${8-row}` as Square,
+        })));
       }
     }
-    return pieces;
+    return squares;
   });
 }

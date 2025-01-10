@@ -1,29 +1,40 @@
 import React from 'react'
+import type { Square } from 'chess.js';
 import { cn } from '../utils/cn';
 import { useDroppable } from '@dnd-kit/core';
 
 
 type SquareProps = {
-  row: number;
-  col: number;
+  square: Square;
   onDrop?: Function;
+  onSquareRightClick?: ((square: Square, color: string) => void) | (() => {});
   children?: React.ReactNode;
 }
 
 const Square = ({
-  row,
-  col,
+  square,
+  onDrop=() => {},
+  onSquareRightClick=() => {},
   children,
 }: SquareProps) => {
   const { setNodeRef, over, isOver } = useDroppable({
-    id: `${row}-${col}`
+    id: square,
   })
 
+  const handleRightClick = (event: React.MouseEvent) => {
+    event.preventDefault();
+    onSquareRightClick(square, 'red');
+  }
+
   return (
-    <div ref={setNodeRef} className={cn(`square ${row}${col}`, isOver && 'shadow-[0_0_0_4px_inset_#fcd34d]')}>
+    <div 
+      ref={setNodeRef} 
+      className={cn(`square ${square}`, isOver && 'shadow-[0_0_0_4px_inset_#fcd34d]')}
+      onContextMenu={handleRightClick}
+    >
       {children}
     </div>
   )
 }
 
-export default Square
+export default React.memo(Square)

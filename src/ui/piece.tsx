@@ -32,4 +32,4 @@ const Piece = ({
   )
 }
 
-export default Piece
+export default React.memo(Piece)

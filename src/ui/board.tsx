@@ -1,7 +1,8 @@
 import React from "react";
-import type { Color } from "chess.js";
+import type { Color, Square } from "chess.js";
 import Piece from "./piece";
-import Square from "./square";
+import BoardSquare from "./square";
+import HighlightsOverlay from "./overlays/highlights";
 import NotationOverlay from "./overlays/notation";
 import { convertFenToBoard } from "../utils/helpers";
 import { DndContext } from "@dnd-kit/core";
@@ -26,6 +27,18 @@ const Board = ({
 } : BoardProps) => {
   const position = convertFenToBoard(fen);
   const boardRef = React.useRef<HTMLDivElement | null>(null);
+  const [highlightedSquares, setHighlightedSquares] = React.useState<{ [key: string]: string }>({})
+
+  const onSquareRightClick = (square: Square, color: string) => {
+    setHighlightedSquares(prevSquares => {
+      const newSquares = { ...prevSquares };
+      if (newSquares[square] === color)
+        delete newSquares[square]
+      else
+        newSquares[square] = color;
+      return newSquares;
+    })
+  }
 
   return (
     <DndContext modifiers={[restrictToBoard, snapCenterToCursor]}>
@@ -35,24 +48,27 @@ const Board = ({
         className="relative aspect-square w-full max-w-5xl h-auto"
       >
         <NotationOverlay orientation={orientation} />
+        <HighlightsOverlay orientation={orientation} highlightedSquares={highlightedSquares} />
         <div className="relative flex flex-wrap w-full h-full z-10">
           {[...Array(8)].map((_, r) => {
             return [...Array(8)].map((_, c) => {
               const [row, col] = orientation === 'w' ? [r, c] : [7-r, 7-c]
-              const piece = position[row][col];
+              const { square, type, color } = position[row][col];
               return (
-                <Square
-                  row={r}
-                  col={c}
+                <BoardSquare
+                  square={square}
                   onDrop={onDrop}
+                  onSquareRightClick={onSquareRightClick}
                 >
-                  {piece ? 
+                  {type && color ? 
                     <Piece 
                       key={`${r}${c}`} 
                       onPieceClick={onPieceClick}
-                      {...piece}
+                      square={square}
+                      type={type}
+                      color={color}
                     /> : null}
-                </Square>
+                </BoardSquare>
               )
             })
           })}
