@@ -1,10 +1,12 @@
 import React from "react";
 import type { Color, Square } from "chess.js";
+import { DEFAULT_POSITION } from "chess.js";
 import Piece from "./piece";
 import BoardSquare from "./square";
 import HighlightsOverlay from "./overlays/highlights";
 import NotationOverlay from "./overlays/notation";
 import { convertFenToBoard } from "../utils/helpers";
+import type { DragEndEvent } from "@dnd-kit/core";
 import { DndContext } from "@dnd-kit/core";
 import { snapCenterToCursor } from "@dnd-kit/modifiers";
 import { restrictToBoard } from "../utils/dnd-modifiers/restrictToBoard";
@@ -15,33 +17,33 @@ import './styles/board.css';
 type BoardProps = {
   fen?: string;
   orientation?: Color;
-  onDrop?: Function;
-  onPieceClick?: Function;
+  highlightedSquares?: { [key in Square]? : string };
+  onDrop?: ((source: Square, target: Square) => void) | (() => void);
+  onPieceClick?: ((square: Square) => void) | (() => void);
+  onSquareRightClick?: ((square: Square) => void) | (() => void);
 }
 
 const Board = ({ 
-  fen='rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1',
+  fen=DEFAULT_POSITION,
   orientation="w",
+  highlightedSquares={},
   onDrop=() => {},
   onPieceClick=() => {},
+  onSquareRightClick=() => {},
 } : BoardProps) => {
   const position = convertFenToBoard(fen);
   const boardRef = React.useRef<HTMLDivElement | null>(null);
-  const [highlightedSquares, setHighlightedSquares] = React.useState<{ [key: string]: string }>({})
 
-  const onSquareRightClick = (square: Square, color: string) => {
-    setHighlightedSquares(prevSquares => {
-      const newSquares = { ...prevSquares };
-      if (newSquares[square] === color)
-        delete newSquares[square]
-      else
-        newSquares[square] = color;
-      return newSquares;
-    })
+  const handleOnDragEnd = (event: DragEndEvent) => {
+    if (!event.active || !event.over) return;
+
+    const source = event.active.id as Square;
+    const target = event.over.id as Square;
+    onDrop(source, target);
   }
 
   return (
-    <DndContext modifiers={[restrictToBoard, snapCenterToCursor]}>
+    <DndContext modifiers={[restrictToBoard, snapCenterToCursor]} onDragEnd={handleOnDragEnd}>
       <div
         id='board'
         ref={boardRef}
@@ -57,7 +59,6 @@ const Board = ({
               return (
                 <BoardSquare
                   square={square}
-                  onDrop={onDrop}
                   onSquareRightClick={onSquareRightClick}
                 >
                   {type && color ? 

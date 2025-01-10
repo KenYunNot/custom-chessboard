@@ -6,14 +6,12 @@ import { useDroppable } from '@dnd-kit/core';
 
 type SquareProps = {
   square: Square;
-  onDrop?: Function;
-  onSquareRightClick?: ((square: Square, color: string) => void) | (() => {});
+  onSquareRightClick?: ((square: Square) => void) | (() => {});
   children?: React.ReactNode;
 }
 
 const Square = ({
   square,
-  onDrop=() => {},
   onSquareRightClick=() => {},
   children,
 }: SquareProps) => {
@@ -23,7 +21,7 @@ const Square = ({
 
   const handleRightClick = (event: React.MouseEvent) => {
     event.preventDefault();
-    onSquareRightClick(square, 'red');
+    onSquareRightClick(square);
   }
 
   return (
