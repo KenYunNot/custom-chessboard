@@ -14,11 +14,15 @@ import './styles/board.css';
 type BoardProps = {
   fen?: string;
   orientation?: Color;
+  onDrop?: Function;
+  onPieceClick?: Function;
 }
 
 const Board = ({ 
   fen='rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1',
   orientation="w",
+  onDrop=() => {},
+  onPieceClick=() => {},
 } : BoardProps) => {
   const position = convertFenToBoard(fen);
   const boardRef = React.useRef<HTMLDivElement | null>(null);
@@ -40,8 +44,14 @@ const Board = ({
                 <Square
                   row={r}
                   col={c}
+                  onDrop={onDrop}
                 >
-                  {piece ? <Piece key={`${r}${c}`} {...piece} /> : null}
+                  {piece ? 
+                    <Piece 
+                      key={`${r}${c}`} 
+                      onPieceClick={onPieceClick}
+                      {...piece}
+                    /> : null}
                 </Square>
               )
             })

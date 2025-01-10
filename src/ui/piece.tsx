@@ -8,12 +8,14 @@ type PieceProps = {
   square: Square;
   type: PieceSymbol;
   color: Color;
+  onPieceClick?: Function;
 }
 
 const Piece = ({
   square,
   type,
   color,
+  onPieceClick=() => {},
 }: PieceProps) => {
   const { listeners, setNodeRef, transform } = useDraggable({
     id: square,
