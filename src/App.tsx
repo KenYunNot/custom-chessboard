@@ -25,6 +25,14 @@ function App() {
     }
   }
 
+  const onPieceClick = (square: Square) => {
+    setHighlightedSquares({});
+  }
+
+  const onSquareClick = (square: Square) => {
+    setHighlightedSquares({});
+  }
+
   const onSquareRightClick = (square: Square) => {
     setHighlightedSquares(prevSquares => {
       const newSquares = { ...prevSquares };
@@ -38,16 +46,18 @@ function App() {
 
   return (
     <div className="App">
-      <div className="w-full h-screen flex justify-center items-center p-20">
+      <div className="w-full h-screen flex justify-center p-20">
         <Board 
           fen={fen} 
           orientation={isBoardFlipped ? 'b' : 'w'}
           highlightedSquares={highlightedSquares}
           onDrop={onDrop}
+          onPieceClick={onPieceClick}
+          onSquareClick={onSquareClick}
           onSquareRightClick={onSquareRightClick}
         />
         {/* <Chessboard position='start' /> */}
-        {/* <MoveHistory history={chess.history()} /> */}
+        <MoveHistory history={chess.history()} />
       </div>
     </div>
   );

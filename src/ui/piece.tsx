@@ -8,7 +8,7 @@ type PieceProps = {
   square: Square;
   type: PieceSymbol;
   color: Color;
-  onPieceClick?: Function;
+  onPieceClick?: ((square: Square) => void) | (() => void);
 }
 
 const Piece = ({
@@ -21,6 +21,11 @@ const Piece = ({
     id: square,
   });
 
+  const handleMouseDown = (event: React.MouseEvent) => {
+    event.preventDefault();
+    if (event.button === 0) onPieceClick(square);
+  }
+
   return (
     <div
       {...listeners} 
@@ -28,6 +33,7 @@ const Piece = ({
       style={{ transform: CSS.Translate.toString(transform) }}
       id={square}
       className={`piece ${color}${type}`}
+      onMouseDown={handleMouseDown}
     />
   )
 }

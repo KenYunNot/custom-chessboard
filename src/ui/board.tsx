@@ -20,6 +20,7 @@ type BoardProps = {
   highlightedSquares?: { [key in Square]? : string };
   onDrop?: ((source: Square, target: Square) => void) | (() => void);
   onPieceClick?: ((square: Square) => void) | (() => void);
+  onSquareClick?: ((square: Square) => void) | (() => void);
   onSquareRightClick?: ((square: Square) => void) | (() => void);
 }
 
@@ -29,6 +30,7 @@ const Board = ({
   highlightedSquares={},
   onDrop=() => {},
   onPieceClick=() => {},
+  onSquareClick=() => {},
   onSquareRightClick=() => {},
 } : BoardProps) => {
   const position = convertFenToBoard(fen);
@@ -47,7 +49,7 @@ const Board = ({
       <div
         id='board'
         ref={boardRef}
-        className="relative aspect-square w-full max-w-5xl h-auto"
+        className="relative aspect-square w-auto h-auto max-h-full"
       >
         <NotationOverlay orientation={orientation} />
         <HighlightsOverlay orientation={orientation} highlightedSquares={highlightedSquares} />
@@ -59,6 +61,7 @@ const Board = ({
               return (
                 <BoardSquare
                   square={square}
+                  onSquareClick={onSquareClick}
                   onSquareRightClick={onSquareRightClick}
                 >
                   {type && color ? 
