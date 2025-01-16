@@ -24,8 +24,7 @@ const HighlightsOverlay = ({
             y={12.5 * (orientation === 'w' ? row : 8-(row+1))}
             width={12.5}
             height={12.5}
-            fill='#e34255' 
-            opacity={0.75} 
+            fill={color}
           />
         )
       })}
