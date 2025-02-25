@@ -25,7 +25,7 @@ const MoveHistory = ({
 
   return (
     <div 
-      className='flex flex-col w-80 h-full py-5 px-8 bg-gray-700 text-white font-semibold'
+      className='flex flex-col w-80 h-full py-5 px-8 bg-[#262421] text-white font-semibold'
     >
       {!history.length && (
         <div className='flex items-center justify-center h-full'>
@@ -40,7 +40,7 @@ const MoveHistory = ({
             <div className='w-14'>
               <button 
                 className={cn('w-fit px-1 rounded-md border-b-4 border-transparent', {
-                  'bg-gray-500 border-gray-300' : white.after === currentFen,
+                  'bg-gray-600 border-gray-500' : white.after === currentFen,
                 })}
                 onClick={() => viewPastBoardState(white)}
                 disabled={white.after === currentFen}
@@ -51,8 +51,8 @@ const MoveHistory = ({
             {black && (
               <div className='w-14'>
                 <button 
-                  className={cn('w-fit px-1', {
-                    'bg-gray-500 rounded-md border-b-4 border-gray-300' : black.after === currentFen,
+                  className={cn('w-fit px-1 rounded-md border-b-4 border-transparent', {
+                    'bg-gray-600 border-gray-500' : black.after === currentFen,
                   })}
                   onClick={() => viewPastBoardState(black)}
                   disabled={black.after === currentFen}
