@@ -13,7 +13,6 @@ import { restrictToBoard } from "../utils/dnd-modifiers/restrictToBoard";
 
 import './styles/board.css';
 
-
 type BoardProps = {
   fen?: string;
   orientation?: Color;
@@ -49,7 +48,7 @@ const Board = ({
       <div
         id='board'
         ref={boardRef}
-        className="relative aspect-square w-auto h-auto max-h-full"
+        className="relative aspect-square w-auto h-auto max-h-full m-5"
       >
         <NotationOverlay orientation={orientation} />
         <HighlightsOverlay orientation={orientation} highlightedSquares={highlightedSquares} />
