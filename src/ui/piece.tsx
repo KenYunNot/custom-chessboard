@@ -2,6 +2,7 @@ import React from 'react'
 import type { Square, PieceSymbol, Color } from 'chess.js'
 import { useDraggable } from '@dnd-kit/core';
 import { CSS } from '@dnd-kit/utilities';
+import { cn } from '../utils/cn';
 
 
 type PieceProps = {
@@ -17,7 +18,7 @@ const Piece = ({
   color,
   onPieceClick=() => {},
 }: PieceProps) => {
-  const { listeners, setNodeRef, transform } = useDraggable({
+  const { listeners, setNodeRef, transform, isDragging } = useDraggable({
     id: square,
   });
 
@@ -32,7 +33,10 @@ const Piece = ({
       ref={setNodeRef}
       style={{ transform: CSS.Translate.toString(transform) }}
       id={square}
-      className={`piece ${color}${type}`}
+      className={cn(`piece ${color}${type} `, {
+        'hover:cursor-grab' : !isDragging,
+        'cursor-grabbing' : isDragging,
+      })}
       onMouseDown={handleMouseDown}
     />
   )
