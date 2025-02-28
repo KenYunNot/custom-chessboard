@@ -14,6 +14,8 @@ const HighlightsOverlay = ({
   return (
     <svg viewBox='0 0 100 100' className='absolute z-0'>
       {Object.entries(highlightedSquares).map(([ square, color ]) => {
+        if (!highlightedSquares[square]) return;
+        
         const [file, rank] = square.split('');
         const col = file.charCodeAt(0) - 'a'.charCodeAt(0);
         const row = 8 - Number(rank);

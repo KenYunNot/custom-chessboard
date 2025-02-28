@@ -10,20 +10,21 @@ function App() {
   const [fen, setFen] = React.useState(chess.fen())
   const [isBoardFlipped, setIsBoardFlipped] = React.useState(false);
   const [highlightedSquares, setHighlightedSquares] = React.useState<{ [key in Square]?: string }>({});
-  const [mostRecentMove, setMostRecentMove] = React.useState<Move>();
+  const [mostRecentMove, setMostRecentMove] = React.useState<Move | null>(null);
+  
+  const [clickStart, setClickStart] = React.useState<Square | null>();
 
   const RED = 'rgb(235, 97, 80, 0.8)';
   const YELLOW = 'rgb(255, 255, 51, 0.5)';
 
-  const onDrop = (source: Square, target: Square) => {
+  const onDrop = (from: Square, to: Square) => {
     try {
       if (fen !== chess.fen()) return;
       const move = chess.move({
-        from: source,
-        to: target,
+        from,
+        to,
         promotion: 'q',
       });
-      setMostRecentMove(move);
       setFen(chess.fen());
     } catch(error) {
 
@@ -35,24 +36,30 @@ function App() {
   }
 
   const onSquareMouseDown = (square: Square) => {
-    
+    setHighlightedSquares({})
   }
   
   const onSquareMouseUp = (square: Square) => {
     
   }
 
-  const onSquareRightMouseUp = (square: Square) => {
-
+  const onSquareRightMouseDown = (square: Square) => {
+    setClickStart(square)
   }
 
-  const onSquareRightMouseDown = (square: Square) => {
-
+  const onSquareRightMouseUp = (square: Square) => {
+    if (clickStart === square) {
+      setHighlightedSquares(prev => {
+        const copy = { ...prev }
+        copy[square] = !copy[square] ? RED : '';
+        return copy;
+      })
+    }
+    setClickStart(null);
   }
 
   const viewPastBoardState = (move: Move) => {
     setFen(move.after);
-    setMostRecentMove(move);
   }
 
   return (
