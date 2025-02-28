@@ -1,5 +1,6 @@
 import React from 'react'
 import type { Color, Square } from 'chess.js';
+import { cn } from '../../utils/cn';
 
 
 type HighlightsOverlayProps = {
@@ -12,18 +13,20 @@ const HighlightsOverlay = ({
   highlightedSquares,
 } : HighlightsOverlayProps) => {
   return (
-    <svg viewBox='0 0 100 100' className='absolute z-0'>
+    <svg viewBox='0 0 100 100' className={cn('absolute z-0', {
+      '-scale-100' : orientation === 'b',
+    })}>
       {Object.entries(highlightedSquares).map(([ square, color ]) => {
         if (!highlightedSquares[square]) return;
-        
+
         const [file, rank] = square.split('');
         const col = file.charCodeAt(0) - 'a'.charCodeAt(0);
         const row = 8 - Number(rank);
         return (
           <rect 
             key={square} 
-            x={12.5 * (orientation === 'w' ? col : 8-(col+1))} 
-            y={12.5 * (orientation === 'w' ? row : 8-(row+1))}
+            x={12.5 * col} 
+            y={12.5 * row}
             width={12.5}
             height={12.5}
             fill={color}
