@@ -17,20 +17,24 @@ type BoardProps = {
   fen?: string;
   orientation?: Color;
   highlightedSquares?: { [key in Square]? : string };
-  onDrop?: ((source: Square, target: Square) => void) | (() => void);
-  onPieceClick?: ((square: Square) => void) | (() => void);
-  onSquareClick?: ((square: Square) => void) | (() => void);
-  onSquareRightClick?: ((square: Square) => void) | (() => void);
+  onDrop?: ((source: Square, target: Square) => void);
+  onPieceClick?: ((square: Square) => void);
+  onSquareMouseDown?: ((square: Square) => void);
+  onSquareMouseUp?: ((square: Square) => void);
+  onSquareRightMouseDown?: ((square: Square) => void);
+  onSquareRightMouseUp?: ((square: Square) => void);
 }
 
 const Board = ({ 
   fen=DEFAULT_POSITION,
   orientation="w",
   highlightedSquares={},
-  onDrop=() => {},
-  onPieceClick=() => {},
-  onSquareClick=() => {},
-  onSquareRightClick=() => {},
+  onDrop=(square: Square) => {},
+  onPieceClick=(square: Square) => {},
+  onSquareMouseDown=(square: Square) => {},
+  onSquareMouseUp=(square: Square) => {},
+  onSquareRightMouseDown=(square: Square) => {},
+  onSquareRightMouseUp=(square: Square) => {},
 } : BoardProps) => {
   const position = convertFenToBoard(fen);
   const boardRef = React.useRef<HTMLDivElement | null>(null);
@@ -60,8 +64,10 @@ const Board = ({
               return (
                 <BoardSquare
                   square={square}
-                  onSquareClick={onSquareClick}
-                  onSquareRightClick={onSquareRightClick}
+                  onSquareMouseDown={onSquareMouseDown}
+                  onSquareMouseUp={onSquareMouseUp}
+                  onSquareRightMouseDown={onSquareRightMouseDown}
+                  onSquareRightMouseUp={onSquareRightMouseUp}
                 >
                   {type && color ? 
                     <Piece 

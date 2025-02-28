@@ -23,16 +23,6 @@ function App() {
         to: target,
         promotion: 'q',
       });
-      setHighlightedSquares(prev => {
-        const copy = { ...prev };
-        copy[move.from] = YELLOW;
-        copy[move.to] = YELLOW;
-        if (mostRecentMove) {
-          delete copy[mostRecentMove.from];
-          delete copy[mostRecentMove.to];
-        }
-        return copy;
-      })
       setMostRecentMove(move);
       setFen(chess.fen());
     } catch(error) {
@@ -41,43 +31,28 @@ function App() {
   }
 
   const onPieceClick = (square: Square) => {
-    setHighlightedSquares(mostRecentMove ? {
-      [mostRecentMove.from]: YELLOW,
-      [mostRecentMove.to]: YELLOW,
-    }: {});
+    
   }
 
-  const onSquareClick = (square: Square) => {
-    setHighlightedSquares(mostRecentMove ? {
-      [mostRecentMove.from]: YELLOW,
-      [mostRecentMove.to]: YELLOW,
-    }: {});
+  const onSquareMouseDown = (square: Square) => {
+    
+  }
+  
+  const onSquareMouseUp = (square: Square) => {
+    
   }
 
-  const onSquareRightClick = (square: Square) => {
-    setHighlightedSquares(prev => {
-      const copy = { ...prev };
-      if (square in copy && copy[square] === RED) {
-        if (square === mostRecentMove?.from) 
-          copy[square] = YELLOW;
-        else if (square === mostRecentMove?.to) 
-          copy[square] = YELLOW;
-        else 
-          delete copy[square];
-      } else {
-        copy[square] = RED;
-      }
-      return copy;
-    });
+  const onSquareRightMouseUp = (square: Square) => {
+
+  }
+
+  const onSquareRightMouseDown = (square: Square) => {
+
   }
 
   const viewPastBoardState = (move: Move) => {
     setFen(move.after);
     setMostRecentMove(move);
-    setHighlightedSquares(move ? {
-      [move.from]: YELLOW,
-      [move.to]: YELLOW,
-    }: {});
   }
 
   return (
@@ -89,8 +64,10 @@ function App() {
           highlightedSquares={highlightedSquares}
           onDrop={onDrop}
           onPieceClick={onPieceClick}
-          onSquareClick={onSquareClick}
-          onSquareRightClick={onSquareRightClick}
+          onSquareMouseDown={onSquareMouseDown}
+          onSquareMouseUp={onSquareMouseUp}
+          onSquareRightMouseDown={onSquareRightMouseDown}
+          onSquareRightMouseUp={onSquareRightMouseUp}
         />
         <MoveHistory 
           history={chess.history({ verbose: true })}
