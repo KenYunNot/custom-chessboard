@@ -1,5 +1,6 @@
 import type { Color, Square } from 'chess.js'
 import React from 'react'
+import { cn } from '../../utils/cn'
 
 
 export type Arrow = {
@@ -16,7 +17,9 @@ const ArrowsOverlay = ({
   orientation: Color,
 }) => {
   return (
-    <svg viewBox='0 0 100 100' className='absolute pointer-events-none z-50'>
+    <svg viewBox='0 0 100 100' className={cn('absolute pointer-events-none z-50', {
+      '-scale-100' : orientation === 'b',
+    })}>
       {Object.entries(arrows).map(([key, arrow]) => <ArrowPolygon key={key} {...arrow} />)}
     </svg>
   )
