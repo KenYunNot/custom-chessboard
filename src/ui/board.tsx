@@ -5,6 +5,8 @@ import Piece from "./piece";
 import BoardSquare from "./square";
 import HighlightsOverlay from "./overlays/highlights";
 import NotationOverlay from "./overlays/notation";
+import type { Arrow } from './overlays/arrows';
+import ArrowsOverlay from "./overlays/arrows";
 import { convertFenToBoard } from "../utils/helpers";
 import type { DragEndEvent } from "@dnd-kit/core";
 import { DndContext } from "@dnd-kit/core";
@@ -17,6 +19,7 @@ type BoardProps = {
   fen?: string;
   orientation?: Color;
   highlightedSquares?: { [key in Square]? : string };
+  arrows?: { [key: string]: Arrow };
   onDrop?: ((source: Square, target: Square) => void);
   onPieceClick?: ((square: Square) => void);
   onSquareMouseDown?: ((square: Square) => void);
@@ -29,6 +32,7 @@ const Board = ({
   fen=DEFAULT_POSITION,
   orientation="w",
   highlightedSquares={},
+  arrows={},
   onDrop=(square: Square) => {},
   onPieceClick=(square: Square) => {},
   onSquareMouseDown=(square: Square) => {},
@@ -55,8 +59,9 @@ const Board = ({
         className="relative aspect-square w-auto h-auto max-h-full m-5"
       >
         <NotationOverlay orientation={orientation} />
-        <HighlightsOverlay orientation={orientation} highlightedSquares={highlightedSquares} />
-        <div className="relative flex flex-wrap w-full h-full z-10">
+        <HighlightsOverlay highlightedSquares={highlightedSquares} orientation={orientation}  />
+        <ArrowsOverlay arrows={arrows} orientation={orientation} />
+        <div className="absolute flex flex-wrap w-full h-full">
           {[...Array(8)].map((_, r) => {
             return [...Array(8)].map((_, c) => {
               const [row, col] = orientation === 'w' ? [r, c] : [7-r, 7-c]
