@@ -3,19 +3,21 @@ import type { Move, Square } from 'chess.js';
 import { Chess } from 'chess.js';
 import Board from "./ui/board";
 import MoveHistory from './ui/move-history';
+import type { Arrow } from './ui/overlays/arrows';
 
 
 function App() {
   const chess = React.useMemo(() => new Chess(), []);
   const [fen, setFen] = React.useState(chess.fen())
   const [isBoardFlipped, setIsBoardFlipped] = React.useState(false);
-  const [highlightedSquares, setHighlightedSquares] = React.useState<{ [key in Square]?: string }>({});
+  const [highlightedSquares, setHighlightedSquares] = React.useState<{ [key: string]: string }>({});
+  const [arrows, setArrows] = React.useState<{ [key: string]: Arrow }>({});
   const [mostRecentMove, setMostRecentMove] = React.useState<Move | null>(null);
   
-  const [clickStart, setClickStart] = React.useState<Square | null>();
+  const [clickStart, setClickStart] = React.useState<Square | null>(null);
 
   const RED = 'rgb(235, 97, 80, 0.8)';
-  const YELLOW = 'rgb(255, 255, 51, 0.5)';
+  const ORANGE = 'rgba(255, 170, 0, 0.8)';
 
   const onDrop = (from: Square, to: Square) => {
     try {
@@ -36,6 +38,7 @@ function App() {
   }
 
   const onSquareMouseDown = (square: Square) => {
+    setArrows({});
     setHighlightedSquares({})
   }
   
@@ -48,10 +51,24 @@ function App() {
   }
 
   const onSquareRightMouseUp = (square: Square) => {
+    if (!clickStart) return;
     if (clickStart === square) {
       setHighlightedSquares(prev => {
-        const copy = { ...prev }
-        copy[square] = !copy[square] ? RED : '';
+        let copy = { ...prev }
+        if (square in copy)
+          delete copy[square];
+        else
+          copy[square] = RED;
+        return copy;
+      })
+    } else {
+      setArrows(prev => {
+        let copy = { ... prev }
+        const arrowKey = `${clickStart}-${square}`;
+        if (arrowKey in copy) 
+          delete copy[arrowKey];
+        else 
+          copy[arrowKey] = { from: clickStart, to: square, color: ORANGE };
         return copy;
       })
     }
@@ -69,6 +86,7 @@ function App() {
           fen={fen} 
           orientation={isBoardFlipped ? 'b' : 'w'}
           highlightedSquares={highlightedSquares}
+          arrows={arrows}
           onDrop={onDrop}
           onPieceClick={onPieceClick}
           onSquareMouseDown={onSquareMouseDown}
