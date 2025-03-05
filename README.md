@@ -17,6 +17,8 @@ npm start
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 ## Future goals
+- ~~Drawing arrows~~
+  - Change shape for knight moves
 - Piece animations when viewing move history (like [chess.com](https://www.chess.com))
 - Integrate [Stockfish](https://stockfishchess.org/)
   - Analysis tool
