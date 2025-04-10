@@ -1,8 +1,13 @@
 @import "tailwindcss";
 
 :root {
-  --background-color-primary: #312e2b;
-  --background-color-secondary: #262421;
+  --color-primary: #312e2b;
+  --color-secondary: #262421;
+}
+
+@theme {
+  --color-primary: var(--color-primary);
+  --color-secondary: var(--color-secondary);
 }
 
 body {
@@ -10,7 +15,7 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
-  background-color: var(--background-color-primary);
+  background-color: var(--color-primary);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

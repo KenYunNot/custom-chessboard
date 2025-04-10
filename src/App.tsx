@@ -1,14 +1,13 @@
 import React from 'react';
 import type { Move, Square } from 'chess.js';
 import { Chess } from 'chess.js';
-import Board from "./ui/board";
+import Board from './ui/board';
 import MoveHistory from './ui/move-history';
 import type { Arrow } from './ui/overlays/arrows';
 
-
 function App() {
   const chess = React.useMemo(() => new Chess(), []);
-  const [fen, setFen] = React.useState(chess.fen())
+  const [fen, setFen] = React.useState(chess.fen());
   const [isBoardFlipped, setIsBoardFlipped] = React.useState(false);
   // const [mostRecentMove, setMostRecentMove] = React.useState<Move | null>(null);
 
@@ -21,24 +20,22 @@ function App() {
         promotion: 'q',
       });
       setFen(chess.fen());
-    } catch(error) {
-
-    }
-  }
+    } catch (error) {}
+  };
 
   const viewPastBoardState = (move: Move) => {
     setFen(move.after);
-  }
+  };
 
   return (
-    <div className="App">
-      <div className="w-full h-screen flex justify-center p-20">
-        <Board 
-          fen={fen} 
+    <div className='App'>
+      <div className='w-full h-screen flex justify-center p-20'>
+        <Board
+          fen={fen}
           orientation={isBoardFlipped ? 'b' : 'w'}
           onDrop={onDrop}
         />
-        <MoveHistory 
+        <MoveHistory
           history={chess.history({ verbose: true })}
           currentFen={fen}
           viewPastBoardState={viewPastBoardState}
