@@ -25,7 +25,7 @@ const MoveHistory = ({
 
   return (
     <div 
-      className='flex flex-col w-80 h-full py-5 px-8 bg-secondary text-white font-semibold rounded-md'
+      className='flex flex-col w-[550px] min-w-80 h-full py-5 px-8 bg-secondary text-white font-semibold rounded-md'
     >
       {!history.length && (
         <div className='flex items-center justify-center h-full'>
