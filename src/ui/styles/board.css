@@ -1,5 +1,5 @@
 #board {
-  background-image: url('/public/board-pattern.png');
+  background-image: url('/board-pattern.png');
   background-size: 100%;
 }
 
@@ -17,49 +17,49 @@
 }
 
 .bb {
-  background-image: url('/public/pieces/bishop-b.svg');
+  background-image: url('/pieces/bishop-b.svg');
 }
 
 .wb {
-  background-image: url('/public/pieces/bishop-w.svg');
+  background-image: url('/pieces/bishop-w.svg');
 }
 
 .bk {
-  background-image: url('/public/pieces/king-b.svg');
+  background-image: url('/pieces/king-b.svg');
 }
 
 .wk {
-  background-image: url('/public/pieces/king-w.svg');
+  background-image: url('/pieces/king-w.svg');
 }
 
 .bn {
-  background-image: url('/public/pieces/knight-b.svg');
+  background-image: url('/pieces/knight-b.svg');
 }
 
 .wn {
-  background-image: url('/public/pieces/knight-w.svg');
+  background-image: url('/pieces/knight-w.svg');
 }
 
 .bp {
-  background-image: url('/public/pieces/pawn-b.svg');
+  background-image: url('/pieces/pawn-b.svg');
 }
 
 .wp {
-  background-image: url('/public/pieces/pawn-w.svg');
+  background-image: url('/pieces/pawn-w.svg');
 }
 
 .bq {
-  background-image: url('/public/pieces/queen-b.svg');
+  background-image: url('/pieces/queen-b.svg');
 }
 
 .wq {
-  background-image: url('/public/pieces/queen-w.svg');
+  background-image: url('/pieces/queen-w.svg');
 }
 
 .br {
-  background-image: url('/public/pieces/rook-b.svg');
+  background-image: url('/pieces/rook-b.svg');
 }
 
 .wr {
-  background-image: url('/public/pieces/rook-w.svg');
+  background-image: url('/pieces/rook-w.svg');
 }
