@@ -29,12 +29,12 @@ type BoardProps = {
 const Board = ({
   fen = DEFAULT_POSITION,
   orientation = 'w',
-  onDrop = (square: Square) => {},
-  onPieceClick = (square: Square) => {},
-  onSquareMouseDown = (square: Square) => {},
-  onSquareMouseUp = (square: Square) => {},
-  onSquareRightMouseDown = (square: Square) => {},
-  onSquareRightMouseUp = (square: Square) => {},
+  onDrop = () => {},
+  onPieceClick = () => {},
+  onSquareMouseDown = () => {},
+  onSquareMouseUp = () => {},
+  onSquareRightMouseDown = () => {},
+  onSquareRightMouseUp = () => {},
 }: BoardProps) => {
   const position = convertFenToBoard(fen);
   const boardRef = React.useRef<HTMLDivElement | null>(null);

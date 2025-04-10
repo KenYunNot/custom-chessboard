@@ -3,18 +3,18 @@ import type { Move, Square } from 'chess.js';
 import { Chess } from 'chess.js';
 import Board from './ui/board';
 import MoveHistory from './ui/move-history';
-import type { Arrow } from './ui/overlays/arrows';
 
 function App() {
   const chess = React.useMemo(() => new Chess(), []);
   const [fen, setFen] = React.useState(chess.fen());
-  const [isBoardFlipped, setIsBoardFlipped] = React.useState(false);
+  const [isBoardFlipped, _] = React.useState(false);
   // const [mostRecentMove, setMostRecentMove] = React.useState<Move | null>(null);
 
   const onDrop = (from: Square, to: Square) => {
     try {
       if (fen !== chess.fen()) return;
-      const move = chess.move({
+      // const _ = chess.move({
+      chess.move({
         from,
         to,
         promotion: 'q',
