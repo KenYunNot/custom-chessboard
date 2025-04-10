@@ -45,8 +45,6 @@ const Board = ({
   const RED = 'rgb(235, 97, 80, 0.8)';
   const ORANGE = 'rgba(255, 170, 0, 0.8)';
 
-  const worker = new Worker('./stockfish.js');
-
   const handleOnDragEnd = (event: DragEndEvent) => {
     if (!event.active || !event.over) return;
 
