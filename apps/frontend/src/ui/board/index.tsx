@@ -1,17 +1,17 @@
 import React from 'react';
 import type { Color, Square } from 'chess.js';
 import { DEFAULT_POSITION } from 'chess.js';
-import Piece from './piece';
-import BoardSquare from './square';
-import HighlightsOverlay from './overlays/highlights';
-import NotationOverlay from './overlays/notation';
-import type { Arrow } from './overlays/arrows';
-import ArrowsOverlay from './overlays/arrows';
-import { convertFenToBoard } from '../utils/helpers';
+import Piece from '../piece';
+import BoardSquare from '../square';
+import HighlightsOverlay from '../overlays/highlights';
+import NotationOverlay from '../overlays/notation';
+import type { Arrow } from '../overlays/arrows';
+import ArrowsOverlay from '../overlays/arrows';
+import { convertFenToBoard } from '@/utils/helpers';
 import type { DragEndEvent } from '@dnd-kit/core';
 import { DndContext } from '@dnd-kit/core';
 import { snapCenterToCursor } from '@dnd-kit/modifiers';
-import { restrictToBoard } from '../utils/dnd-modifiers/restrictToBoard';
+import { restrictToBoard } from '@/utils/dnd-modifiers/restrictToBoard';
 
 import './styles/board.css';
 
