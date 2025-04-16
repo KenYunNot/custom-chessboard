@@ -2,7 +2,7 @@ import React from 'react';
 import type { Square, PieceSymbol, Color } from 'chess.js';
 import { useDraggable } from '@dnd-kit/core';
 import { CSS } from '@dnd-kit/utilities';
-import { cn } from '../../utils/cn';
+import { cn } from '@/utils/cn';
 
 type PieceProps = {
   square: Square;
