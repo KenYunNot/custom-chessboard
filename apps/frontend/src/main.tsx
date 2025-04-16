@@ -4,8 +4,9 @@ import './index.css';
 import App from './App';
 import { ClerkProvider } from '@clerk/clerk-react';
 import { BrowserRouter, Routes, Route } from 'react-router';
-import SignIn from './routes/signin';
-import SignUp from './routes/signup';
+import SignIn from './routes/sign-in';
+import SignUp from './routes/sign-up';
+import SidebarLayout from './ui/layouts/sidebar';
 
 // Import your Publishable Key
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
@@ -23,18 +24,19 @@ createRoot(document.getElementById('root')!).render(
       <BrowserRouter>
         <Routes>
           <Route
-            path='/'
-            element={<App />}
-          />
-
-          <Route
-            path='signin'
+            path='/sign-in'
             element={<SignIn />}
           />
           <Route
-            path='signup'
+            path='/sign-up'
             element={<SignUp />}
           />
+          <Route element={<SidebarLayout />}>
+            <Route
+              path='/'
+              element={<App />}
+            />
+          </Route>
         </Routes>
       </BrowserRouter>
     </ClerkProvider>
