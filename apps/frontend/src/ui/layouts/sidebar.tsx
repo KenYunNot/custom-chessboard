@@ -6,14 +6,18 @@ const SidebarLayout = () => {
     <div className='flex'>
       <div className='w-32 p-1 flex flex-col bg-foreground text-white'>
         <SignedIn>
-          <button className='py-2 bg-neutral-700 rounded-md text-sm font-semibold hover:bg-neutral-600 hover:cursor-pointer'>
-            <SignOutButton />
-          </button>
+          <SignOutButton>
+            <button className='py-2 bg-neutral-700 rounded-md text-sm font-semibold hover:bg-neutral-600 hover:cursor-pointer'>
+              Sign Out
+            </button>
+          </SignOutButton>
         </SignedIn>
         <SignedOut>
-          <button className='py-2 bg-neutral-700 rounded-md text-sm font-semibold hover:bg-neutral-600 hover:cursor-pointer'>
-            <SignInButton />
-          </button>
+          <SignInButton>
+            <button className='py-2 bg-neutral-700 rounded-md text-sm font-semibold hover:bg-neutral-600 hover:cursor-pointer'>
+              Sign In
+            </button>
+          </SignInButton>
         </SignedOut>
       </div>
       <Outlet />
