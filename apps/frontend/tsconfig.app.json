@@ -7,7 +7,7 @@
     "module": "ESNext",
     "skipLibCheck": true,
     "paths": {
-      "@/*": ["./src/*"],
+      "@/*": ["./*"],
     },
 
     /* Bundler mode */
@@ -25,5 +25,5 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": ["src"]
+  "include": ["src", "lib/utils.ts", "lib/helpers.ts"]
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import type { Move } from 'chess.js';
-import { cn } from '../utils/cn';
+import { cn } from '@/lib/utils';
 
 type MoveHistoryProps = {
   history: Move[];

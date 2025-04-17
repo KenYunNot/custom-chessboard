@@ -6,7 +6,7 @@ import { ClerkProvider } from '@clerk/clerk-react';
 import { BrowserRouter, Routes, Route } from 'react-router';
 import SignIn from './routes/sign-in';
 import SignUp from './routes/sign-up';
-import SidebarLayout from './ui/layouts/sidebar';
+import SidebarLayout from '@/components/layouts/sidebar';
 
 // Import your Publishable Key
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;

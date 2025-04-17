@@ -1,6 +1,6 @@
 import React from 'react';
 import type { Square } from 'chess.js';
-import { cn } from '@/utils/cn';
+import { cn } from '@/lib/utils';
 import { useDroppable } from '@dnd-kit/core';
 
 type SquareProps = {

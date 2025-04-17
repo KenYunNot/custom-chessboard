@@ -1,15 +1,14 @@
 import React from 'react';
 import type { Move, Square } from 'chess.js';
 import { Chess } from 'chess.js';
-import Board from './ui/board';
-import MoveHistory from './ui/move-history';
+import Board from '@/components/board';
+import MoveHistory from '@/components/move-history';
 import { SignedIn, SignedOut } from '@clerk/clerk-react';
 
 function App() {
   const chess = React.useMemo(() => new Chess(), []);
   const [fen, setFen] = React.useState(chess.fen());
   const [isBoardFlipped, _] = React.useState(false);
-  // const [mostRecentMove, setMostRecentMove] = React.useState<Move | null>(null);
 
   const onDrop = (from: Square, to: Square) => {
     try {

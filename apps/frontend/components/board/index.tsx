@@ -7,11 +7,11 @@ import HighlightsOverlay from '../overlays/highlights';
 import NotationOverlay from '../overlays/notation';
 import type { Arrow } from '../overlays/arrows';
 import ArrowsOverlay from '../overlays/arrows';
-import { convertFenToBoard } from '@/utils/helpers';
+import { convertFenToBoard } from '@/lib/helpers';
 import type { DragEndEvent } from '@dnd-kit/core';
 import { DndContext } from '@dnd-kit/core';
 import { snapCenterToCursor } from '@dnd-kit/modifiers';
-import { restrictToBoard } from '@/utils/dnd-modifiers/restrictToBoard';
+import { restrictToBoard } from '@/lib/dnd-modifiers/restrictToBoard';
 
 import './styles.css';
 

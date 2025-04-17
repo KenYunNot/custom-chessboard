@@ -1,6 +1,6 @@
 import React from 'react';
 import type { Color } from 'chess.js';
-import { cn } from '../../utils/cn';
+import { cn } from '@/lib/utils';
 
 type HighlightsOverlayProps = {
   orientation: Color;
