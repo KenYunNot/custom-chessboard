@@ -43,10 +43,10 @@ function App() {
       </SignedOut>
       <SignedIn>
         <div className='flex items-center gap-3'>
-          <button className='w-36 h-12 bg-primary text-white text-shadow-xs text-shadow-neutral-500 font-semibold rounded-md hover:bg-secondary hover:cursor-pointer'>
+          <button className='w-36 h-12 bg-accent-primary text-white text-shadow-xs text-shadow-neutral-500 font-semibold rounded-md hover:bg-accent-secondary hover:cursor-pointer'>
             Create Game
           </button>
-          <button className='w-36 h-12 bg-primary text-white text-shadow-xs text-shadow-neutral-500 font-semibold rounded-md hover:bg-secondary hover:cursor-pointer'>
+          <button className='w-36 h-12 bg-accent-primary text-white text-shadow-xs text-shadow-neutral-500 font-semibold rounded-md hover:bg-accent-secondary hover:cursor-pointer'>
             Find Game
           </button>
         </div>

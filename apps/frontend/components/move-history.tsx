@@ -18,7 +18,7 @@ const MoveHistory = ({ history, currentFen, viewPastBoardState }: MoveHistoryPro
   };
 
   return (
-    <div className='flex flex-col w-[550px] min-w-80 h-full py-5 px-8 bg-foreground text-white font-semibold rounded-md'>
+    <div className='flex flex-col w-[550px] min-w-80 h-full py-5 px-8 bg-body-foreground text-white font-semibold rounded-md'>
       {!history.length && (
         <div className='flex items-center justify-center h-full'>Make a move!</div>
       )}
