@@ -3,13 +3,15 @@
 :root {
   --background: #312e2b;
   --foreground: #262421;
-  --primary: var(--color-green-400)
+  --primary: #81b64c;
+  --secondary: #a3d160;
 }
 
 @theme {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
 }
 
 body {

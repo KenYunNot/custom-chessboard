@@ -33,7 +33,7 @@ createRoot(document.getElementById('root')!).render(
           />
           <Route element={<SidebarLayout />}>
             <Route
-              path='/'
+              index
               element={<App />}
             />
           </Route>
