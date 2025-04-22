@@ -6,6 +6,7 @@ import { ClerkProvider } from '@clerk/clerk-react';
 import { BrowserRouter, Routes, Route } from 'react-router';
 import SignIn from './routes/sign-in';
 import SignUp from './routes/sign-up';
+import Game from './routes/game';
 import SidebarLayout from '@/components/layouts/sidebar';
 
 // Import your Publishable Key
@@ -35,6 +36,10 @@ createRoot(document.getElementById('root')!).render(
             <Route
               index
               element={<App />}
+            />
+            <Route
+              path='/game/:id'
+              element={<Game />}
             />
           </Route>
         </Routes>
