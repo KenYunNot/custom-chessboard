@@ -6,8 +6,9 @@
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "module": "ESNext",
     "skipLibCheck": true,
+    "baseUrl": ".",
     "paths": {
-      "@/*": ["./*"],
+      "@/*": ["src/*"],
     },
 
     /* Bundler mode */
@@ -25,5 +26,5 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": ["src", "lib/utils.ts", "lib/helpers.ts"]
+  "include": ["src", "src/lib/utils.ts", "src/lib/helpers.ts"]
 }

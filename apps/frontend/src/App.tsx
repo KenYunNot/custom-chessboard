@@ -4,6 +4,7 @@ import { Chess } from 'chess.js';
 import Board from '@/components/board';
 import MoveHistory from '@/components/move-history';
 import { SignedIn, SignedOut } from '@clerk/clerk-react';
+import CreateGame from '@/components/create-game';
 
 function App() {
   const chess = React.useMemo(() => new Chess(), []);
@@ -43,9 +44,7 @@ function App() {
       </SignedOut>
       <SignedIn>
         <div className='flex items-center gap-3'>
-          <button className='w-36 h-12 bg-accent-primary text-white text-shadow-xs text-shadow-neutral-500 font-semibold rounded-md hover:bg-accent-secondary hover:cursor-pointer'>
-            Create Game
-          </button>
+          <CreateGame />
           <button className='w-36 h-12 bg-accent-primary text-white text-shadow-xs text-shadow-neutral-500 font-semibold rounded-md hover:bg-accent-secondary hover:cursor-pointer'>
             Find Game
           </button>
