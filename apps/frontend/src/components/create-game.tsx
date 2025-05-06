@@ -1,44 +1,119 @@
+'use client';
+
 import React from 'react';
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from './shadcn/dialog';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from './ui/dialog';
+import { cn } from '@/lib/utils';
+import { socket } from '@/lib/socket';
+import { Button } from './ui/button';
+import Loading from './ui/loading';
 
-const bullet = [
-  { time: 1, increment: 0 },
-  { time: 1, increment: 1 },
-  { time: 2, increment: 1 },
-];
+type Category = 'bullet' | 'blitz' | 'rapid';
 
-const blitz = [
-  { time: 3, increment: 0 },
-  { time: 3, increment: 2 },
-  { time: 5, increment: 0 },
-];
+type TimeControl = {
+  category: Category;
+  time: number;
+  increment: number;
+  text: string;
+};
 
-const rapid = [
-  { time: 10, increment: 0 },
-  { time: 15, increment: 10 },
-  { time: 30, increment: 0 },
-];
+const timeSignatures = {
+  bullet: [
+    { category: 'bullet', time: 1, increment: 0, text: '1 min' },
+    { category: 'bullet', time: 1, increment: 1, text: '1 | 1' },
+    { category: 'bullet', time: 2, increment: 1, text: '2 | 1' },
+  ],
+  blitz: [
+    { category: 'blitz', time: 3, increment: 0, text: '3 min' },
+    { category: 'blitz', time: 3, increment: 2, text: '3 | 2' },
+    { category: 'blitz', time: 5, increment: 0, text: '5 min' },
+  ],
+  rapid: [
+    { category: 'rapid', time: 10, increment: 0, text: '10 min' },
+    { category: 'rapid', time: 15, increment: 10, text: '15 | 10' },
+    { category: 'rapid', time: 30, increment: 0, text: '30 min' },
+  ],
+} as { [key in Category]: Array<TimeControl> };
 
-const CreateGame = () => {
+const CreateGame = ({ isConnected }: { isConnected: boolean }) => {
+  const [open, setOpen] = React.useState<boolean>(false);
+  const [value, setValue] = React.useState<TimeControl>({
+    category: 'rapid',
+    time: 10,
+    increment: 0,
+    text: '10 min',
+  });
+
+  const connect = () => {
+    socket.connect();
+  };
+
+  const disconnect = () => {
+    socket.disconnect();
+  };
+
   return (
-    <Dialog>
+    <Dialog
+      open={open}
+      onOpenChange={(open) => setOpen(open)}
+    >
       <DialogTrigger className='w-36 h-12 bg-accent-primary text-white text-shadow-xs text-shadow-neutral-500 font-semibold rounded-md hover:bg-accent-secondary hover:cursor-pointer'>
         Create Game
       </DialogTrigger>
       <DialogContent className='bg-body-background text-white border-body-background'>
-        <DialogHeader className='text-xl font-semibold'>
-          <DialogTitle>Create a game</DialogTitle>
+        <DialogHeader>
+          <DialogTitle className='font-semibold text-lg'>Create a game</DialogTitle>
         </DialogHeader>
-        <div></div>
+        {!isConnected && (
+          <div className='w-full'>
+            {Object.entries(timeSignatures).map(([category, options]) => {
+              return (
+                <div
+                  key={category}
+                  className='w-full mt-3'
+                >
+                  <p className='font-semibold'>
+                    {category.charAt(0).toUpperCase()}
+                    {category.slice(1)}
+                  </p>
+                  <div className='mt-1 flex gap-3'>
+                    {options.map((option, i) => (
+                      <button
+                        key={i}
+                        className={cn(
+                          'w-1/3 py-3 bg-neutral-700 font-semibold rounded-sm hover:bg-neutral-600 hover:cursor-pointer',
+                          {
+                            'inset-shadow-[0_0_0_2px] inset-shadow-accent-primary':
+                              value.time === option.time && value.increment === option.increment,
+                          }
+                        )}
+                        onClick={() => setValue(option)}
+                      >
+                        {option.text}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              );
+            })}
+            <button
+              className='w-full mt-5 py-4 font-bold bg-accent-primary rounded-md border-b-6 border-b-accent-secondary text-xl text-shadow-sm text-shadow-neutral-500 hover:brightness-[1.15] hover:cursor-pointer active:brightness-100'
+              onClick={connect}
+            >
+              Play
+            </button>
+          </div>
+        )}
+        {isConnected && (
+          <div>
+            <p>Finding a game...</p>
+            <button
+              className='w-full mt-5 py-4 font-bold bg-neutral-400 rounded-md border-b-6 border-b-neutral-500 text-xl text-shadow-sm text-shadow-neutral-500 hover:brightness-[1.15] hover:cursor-pointer active:brightness-100'
+              onClick={disconnect}
+            >
+              Cancel
+            </button>
+          </div>
+        )}
       </DialogContent>
     </Dialog>
   );
