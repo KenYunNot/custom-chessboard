@@ -38,7 +38,7 @@ createRoot(document.getElementById('root')!).render(
               element={<App />}
             />
             <Route
-              path='/game/:id'
+              path='/game/:gameId'
               element={<Game />}
             />
           </Route>

@@ -2,9 +2,9 @@ import React from 'react';
 import { useParams } from 'react-router';
 
 const Game = () => {
-  const { id } = useParams();
+  const { gameId } = useParams();
 
-  return <div>Game</div>;
+  return <div>{gameId}</div>;
 };
 
 export default Game;
