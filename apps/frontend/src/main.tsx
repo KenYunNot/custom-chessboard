@@ -6,7 +6,7 @@ import { ClerkProvider } from '@clerk/clerk-react';
 import { BrowserRouter, Routes, Route } from 'react-router';
 import SignIn from './routes/sign-in';
 import SignUp from './routes/sign-up';
-import Game from './routes/game';
+import Game from './routes/game/[id]';
 import SidebarLayout from '@/components/layouts/sidebar';
 
 // Import your Publishable Key
