@@ -2,6 +2,7 @@ import React from 'react';
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -29,9 +30,8 @@ const timeSignatures = {
   ],
 } as { [key in Category]: Array<TimeControl> };
 
-const CreateGameDialog = ({ isConnected }: { isConnected: boolean }) => {
+const CreateGameDialog = () => {
   const { user } = useUser();
-  const [open, setOpen] = React.useState<boolean>(false);
   const [timeControl, setTimeControl] = React.useState<TimeControl>({
     category: 'rapid',
     time: 10,
@@ -41,82 +41,59 @@ const CreateGameDialog = ({ isConnected }: { isConnected: boolean }) => {
 
   const connect = () => {
     socket.auth = { userId: user?.id };
+    socket.timeControl = timeControl;
     socket.connect();
   };
 
-  const disconnect = () => {
-    socket.disconnect();
-  };
-
   return (
-    <Dialog
-      open={open}
-      onOpenChange={(open) => {
-        if (!open) disconnect();
-        setOpen(open);
-      }}
-    >
+    <Dialog>
       <DialogTrigger className='w-36 h-12 bg-accent-primary text-white text-shadow-xs text-shadow-neutral-500 font-semibold rounded-md hover:bg-accent-secondary hover:cursor-pointer'>
         Create Game
       </DialogTrigger>
       <DialogContent className='bg-body-background text-white border-body-background'>
         <DialogHeader>
           <DialogTitle className='font-semibold text-lg'>Create a game</DialogTitle>
+          <DialogDescription>Select a time control</DialogDescription>
         </DialogHeader>
-        {!isConnected && (
-          <div className='w-full'>
-            {Object.entries(timeSignatures).map(([category, options]) => {
-              return (
-                <div
-                  key={category}
-                  className='w-full mt-3'
-                >
-                  <p className='font-semibold'>
-                    {category.charAt(0).toUpperCase()}
-                    {category.slice(1)}
-                  </p>
-                  <div className='mt-1 flex gap-3'>
-                    {options.map((option, i) => (
-                      <button
-                        key={i}
-                        className={cn(
-                          'w-1/3 py-3 bg-neutral-700 font-semibold rounded-sm hover:bg-neutral-600 hover:cursor-pointer',
-                          {
-                            'inset-shadow-[0_0_0_2px] inset-shadow-accent-primary':
-                              timeControl.time === option.time &&
-                              timeControl.increment === option.increment,
-                          }
-                        )}
-                        onClick={() => setTimeControl(option)}
-                      >
-                        {option.text}
-                      </button>
-                    ))}
-                  </div>
+        <div className='w-full'>
+          {Object.entries(timeSignatures).map(([category, options]) => {
+            return (
+              <div
+                key={category}
+                className='w-full mt-3'
+              >
+                <p className='font-semibold'>
+                  {category.charAt(0).toUpperCase()}
+                  {category.slice(1)}
+                </p>
+                <div className='mt-1 flex gap-3'>
+                  {options.map((option, i) => (
+                    <button
+                      key={i}
+                      className={cn(
+                        'w-1/3 py-3 bg-neutral-700 font-semibold rounded-sm hover:bg-neutral-600 hover:cursor-pointer',
+                        {
+                          'inset-shadow-[0_0_0_2px] inset-shadow-accent-primary':
+                            timeControl.time === option.time &&
+                            timeControl.increment === option.increment,
+                        }
+                      )}
+                      onClick={() => setTimeControl(option)}
+                    >
+                      {option.text}
+                    </button>
+                  ))}
                 </div>
-              );
-            })}
-            <button
-              className='w-full mt-5 py-4 font-bold bg-accent-primary rounded-md border-b-6 border-b-accent-secondary text-xl text-shadow-sm text-shadow-neutral-500 hover:brightness-[1.15] hover:cursor-pointer active:brightness-100'
-              onClick={connect}
-            >
-              Play
-            </button>
-          </div>
-        )}
-        {isConnected && (
-          <div>
-            <p>
-              Finding <span className='underline'>{timeControl.text}</span> game...
-            </p>
-            <button
-              className='w-full mt-5 py-4 font-bold bg-neutral-400 rounded-md border-b-6 border-b-neutral-500 text-xl text-shadow-sm text-shadow-neutral-500 hover:brightness-[1.15] hover:cursor-pointer active:brightness-100'
-              onClick={disconnect}
-            >
-              Cancel
-            </button>
-          </div>
-        )}
+              </div>
+            );
+          })}
+          <button
+            className='w-full mt-5 py-4 font-bold bg-accent-primary rounded-md border-b-6 border-b-accent-secondary text-xl text-shadow-sm text-shadow-neutral-500 hover:brightness-[1.15] hover:cursor-pointer active:brightness-100'
+            onClick={connect}
+          >
+            Play
+          </button>
+        </div>
       </DialogContent>
     </Dialog>
   );
