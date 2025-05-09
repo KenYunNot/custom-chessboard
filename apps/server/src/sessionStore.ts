@@ -1,6 +1,5 @@
 export type Session = {
-  gameId: number;
-  // userId: string;
+  gameId: string;
 };
 
 export class SessionStore {
@@ -10,11 +9,11 @@ export class SessionStore {
     this.sessions = new Map();
   }
 
-  findSession(id: number) {
+  findSession(id: string) {
     return this.sessions.get(id);
   }
 
-  saveSession(id: number, session: Session) {
+  saveSession(id: string, session: Session) {
     this.sessions.set(id, session);
   }
 
