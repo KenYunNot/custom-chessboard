@@ -9,6 +9,7 @@ import SignUp from './routes/sign-up';
 import FindGame from './routes/play';
 import PlayGame from './routes/play/[id]';
 import SidebarLayout from '@/components/layouts/sidebar';
+import { Toaster } from './components/ui/sonner';
 
 // Import your Publishable Key
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
@@ -49,6 +50,7 @@ createRoot(document.getElementById('root')!).render(
           </Route>
         </Routes>
       </BrowserRouter>
+      <Toaster />
     </ClerkProvider>
   </StrictMode>
 );
