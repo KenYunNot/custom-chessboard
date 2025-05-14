@@ -117,6 +117,7 @@ const Board = ({
               const { square, type, color } = position[row][col];
               return (
                 <BoardSquare
+                  key={`${r}${c}`}
                   square={square}
                   onSquareMouseDown={_onSquareMouseDown}
                   onSquareMouseUp={_onSquareMouseUp}

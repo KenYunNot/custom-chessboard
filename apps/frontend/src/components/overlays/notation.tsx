@@ -15,6 +15,7 @@ const NotationOverlay = ({ orientation = 'w' }: NotationOverlayProps) => {
     >
       {[...Array(8)].map((_, index) => (
         <text
+          key={index}
           x={0.75}
           y={3.5 + 12.5 * index}
           fontSize={2.8}
@@ -26,6 +27,7 @@ const NotationOverlay = ({ orientation = 'w' }: NotationOverlayProps) => {
       ))}
       {[...Array(8)].map((_, index) => (
         <text
+          key={index}
           x={10 + 12.5 * index}
           y={99}
           fontSize={2.8}
