@@ -1,14 +1,8 @@
-type Player = {
-  id: string;
-  timer: Array<number>;
-};
-
 export type Game = {
   id: string;
-  time: number;
-  increment: number;
-  playerWhite: Player;
-  playerBlack: Player;
+  fen: string;
+  playerWhiteId: string;
+  playerBlackId: string;
 };
 
 export class GameStore {
@@ -24,6 +18,12 @@ export class GameStore {
 
   saveGame(id: string, game: Game) {
     this.games.set(id, game);
+  }
+
+  updateFen(id: string, fen: string) {
+    const updatedGame = { ...this.findGame(id) };
+    updatedGame.fen = fen;
+    this.games.set(id, updatedGame);
   }
 
   removeGame(id: string) {
