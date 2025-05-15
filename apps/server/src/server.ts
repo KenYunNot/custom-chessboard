@@ -2,13 +2,15 @@ import express from 'express';
 import { createServer } from 'node:http';
 import { join } from 'node:path';
 import { Server } from 'socket.io';
-import { GameStore } from './gameStore';
 import { type Move, Chess, DEFAULT_POSITION } from 'chess.js';
+import { GameStore } from './gameStore';
+import { SessionStore } from './sessionStore';
 
 declare module 'socket.io' {
   interface Socket {
     userId: string;
     sessionId: string;
+    gameId: string;
   }
 }
 
@@ -19,7 +21,9 @@ const io = new Server(server, {
     origin: ['http://localhost:4173', 'http://localhost:5173'],
   },
 });
+
 const gameStore = new GameStore();
+const sessionStore = new SessionStore();
 
 app.get('/', (_, res) => {
   res.sendFile(join(__dirname, '../', 'index.html'));
@@ -29,6 +33,13 @@ io.use((socket, next) => {
   const { userId, sessionId } = socket.handshake.auth;
   if (!userId) {
     return next(new Error('Must be authenticated.'));
+  }
+  if (sessionId) {
+    const session = sessionStore.findSession(sessionId);
+    if (session && session.me === userId) {
+      socket.sessionId = sessionId;
+      socket.gameId = session.gameId;
+    }
   }
   socket.userId = userId;
   next();
