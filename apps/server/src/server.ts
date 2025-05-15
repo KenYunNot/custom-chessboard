@@ -45,7 +45,10 @@ io.on('connection', (socket) => {
     if (sockets.length === 0) {
       socket.join(pool);
     } else {
-      const gameId = Math.ceil(Math.random() * 10000000).toString();
+      let gameId = Math.ceil(Math.random() * 10000000).toString();
+      while (!!gameStore.findGame(gameId)) {
+        gameId = Math.ceil(Math.random() * 10000000).toString();
+      }
       const opponentSocket = sockets[Math.floor(Math.random() * sockets.length)];
       const [playerWhiteSocket, playerBlackSocket] =
         Math.random() < 0.5 ? [socket, opponentSocket] : [opponentSocket, socket];
