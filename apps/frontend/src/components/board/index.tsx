@@ -38,7 +38,7 @@ const Board = ({
 }: BoardProps) => {
   const position = convertFenToBoard(fen);
   const boardRef = React.useRef<HTMLDivElement | null>(null);
-  const [highlightedSquares, setHighlightedSquares] = React.useState<{ [key: string]: string }>({});
+  const [highlightedSquares, setHighlightedSquares] = React.useState<{ [key in Square]?: string }>({});
   const [arrows, setArrows] = React.useState<{ [key: string]: Arrow }>({});
   const [clickStart, setClickStart] = React.useState<Square | null>(null);
 
@@ -99,7 +99,7 @@ const Board = ({
       <div
         id='board'
         ref={boardRef}
-        className='relative aspect-square w-auto h-auto max-h-full m-5'
+        className='relative aspect-square w-auto h-auto max-h-full'
       >
         <NotationOverlay orientation={orientation} />
         <HighlightsOverlay
