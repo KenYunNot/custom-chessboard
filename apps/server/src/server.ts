@@ -37,33 +37,30 @@ io.use((socket, next) => {
 io.on('connection', (socket) => {
   console.log('A user has connected!');
 
-  socket.on(
-    'find-opponent',
-    async (timeControl: { category: string; time: number; increment: number }) => {
-      // Guard against users who already have gameId set
-      const { category, time, increment } = timeControl;
-      const pool = `${category}-${time}-${increment}`;
-      const sockets = await io.in(pool).fetchSockets();
-      if (sockets.length === 0) {
-        socket.join(pool);
-      } else {
-        const gameId = Math.ceil(Math.random() * 10000000).toString();
-        const opponentSocket = sockets[Math.floor(Math.random() * sockets.length)];
-        const [playerWhiteSocket, playerBlackSocket] =
-          Math.random() < 0.5 ? [socket, opponentSocket] : [opponentSocket, socket];
-        gameStore.saveGame(gameId, {
-          id: gameId,
-          fen: DEFAULT_POSITION,
-          playerWhiteId: playerWhiteSocket.id,
-          playerBlackId: playerBlackSocket.id,
-        });
-        playerWhiteSocket.join(gameId);
-        playerBlackSocket.join(gameId);
-        playerWhiteSocket.emit('found-opponent', gameId, 'w', playerBlackSocket.id);
-        playerBlackSocket.emit('found-opponent', gameId, 'b', playerWhiteSocket.id);
-      }
+  socket.on('find-opponent', async (timeControl: { category: string; time: number; increment: number }) => {
+    // Guard against users who already have gameId set
+    const { category, time, increment } = timeControl;
+    const pool = `${category}-${time}-${increment}`;
+    const sockets = await io.in(pool).fetchSockets();
+    if (sockets.length === 0) {
+      socket.join(pool);
+    } else {
+      const gameId = Math.ceil(Math.random() * 10000000).toString();
+      const opponentSocket = sockets[Math.floor(Math.random() * sockets.length)];
+      const [playerWhiteSocket, playerBlackSocket] =
+        Math.random() < 0.5 ? [socket, opponentSocket] : [opponentSocket, socket];
+      gameStore.saveGame(gameId, {
+        id: gameId,
+        fen: DEFAULT_POSITION,
+        playerWhiteId: playerWhiteSocket.id,
+        playerBlackId: playerBlackSocket.id,
+      });
+      playerWhiteSocket.join(gameId);
+      playerBlackSocket.join(gameId);
+      playerWhiteSocket.emit('found-opponent', gameId, 'w', playerBlackSocket.id);
+      playerBlackSocket.emit('found-opponent', gameId, 'b', playerWhiteSocket.id);
     }
-  );
+  });
 
   socket.on('play-game', (gameId: string) => {
     socket.on('move', (move: Move) => {
@@ -78,6 +75,23 @@ io.on('connection', (socket) => {
         });
         gameStore.updateFen(gameId, chess.fen());
         socket.to(gameId).emit('move', move);
+        if (chess.isGameOver()) {
+          if (chess.isCheckmate()) {
+            const [winnerId, loserId] =
+              chess.turn() === 'w' ? [playerBlackId, playerWhiteId] : [playerWhiteId, playerBlackId];
+            // Emit isWinner boolean
+            io.to(winnerId).emit('checkmate', true);
+            io.to(loserId).emit('checkmate', false);
+          } else if (chess.isDraw()) {
+            io.to(gameId).emit('draw', {
+              stalemate: chess.isStalemate(),
+              repetition: chess.isThreefoldRepetition(),
+              fiftyMoveRule: chess.isDrawByFiftyMoves(),
+              insufficientMaterial: chess.isInsufficientMaterial(),
+            });
+          }
+          io.in(gameId).disconnectSockets();
+        }
       } catch (error) {
         socket.emit('invalid-move', fen);
       }
