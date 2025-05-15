@@ -8,7 +8,7 @@ import { type Move, Chess, DEFAULT_POSITION } from 'chess.js';
 declare module 'socket.io' {
   interface Socket {
     userId: string;
-    gameId: string;
+    sessionId: string;
   }
 }
 
@@ -26,7 +26,7 @@ app.get('/', (_, res) => {
 });
 
 io.use((socket, next) => {
-  const { userId, gameId } = socket.handshake.auth;
+  const { userId, sessionId } = socket.handshake.auth;
   if (!userId) {
     return next(new Error('Must be authenticated.'));
   }
@@ -45,15 +45,10 @@ io.on('connection', (socket) => {
     if (sockets.length === 0) {
       socket.join(pool);
     } else {
-      let gameId = Math.ceil(Math.random() * 10000000).toString();
-      while (!!gameStore.findGame(gameId)) {
-        gameId = Math.ceil(Math.random() * 10000000).toString();
-      }
       const opponentSocket = sockets[Math.floor(Math.random() * sockets.length)];
       const [playerWhiteSocket, playerBlackSocket] =
         Math.random() < 0.5 ? [socket, opponentSocket] : [opponentSocket, socket];
-      gameStore.saveGame(gameId, {
-        id: gameId,
+      const gameId = gameStore.saveGame({
         fen: DEFAULT_POSITION,
         playerWhiteId: playerWhiteSocket.id,
         playerBlackId: playerBlackSocket.id,
@@ -103,7 +98,7 @@ io.on('connection', (socket) => {
 
   socket.on('disconnect', () => {
     console.log('A user has disconnected!');
-    gameStore.removeGame(socket.gameId);
+    // gameStore.removeGame(socket.gameId);
   });
 });
 

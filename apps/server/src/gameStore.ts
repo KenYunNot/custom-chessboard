@@ -1,5 +1,4 @@
 export type Game = {
-  id: string;
   fen: string;
   playerWhiteId: string;
   playerBlackId: string;
@@ -16,8 +15,11 @@ export class GameStore {
     return this.games.get(id);
   }
 
-  saveGame(id: string, game: Game) {
+  saveGame(game: Game) {
+    let id = Math.ceil(Math.random() * 10000000).toString();
+    while (this.findGame(id)) id = Math.ceil(Math.random() * 10000000).toString();
     this.games.set(id, game);
+    return id;
   }
 
   updateFen(id: string, fen: string) {
