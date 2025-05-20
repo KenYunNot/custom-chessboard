@@ -16,9 +16,9 @@ const FindGame = () => {
       socket.emit('find-opponent', socket.timeControl);
     };
 
-    const onFoundOpponent = (sessionId: string, gameId: string) => {
-      socket.auth = { userId: user?.id, sessionId };
-      localStorage.setItem('sessionId', sessionId);
+    const onFoundOpponent = (gameId: string) => {
+      socket.auth = { userId: user?.id, gameId };
+      localStorage.setItem('gameId', gameId);
       navigate(`/play/${gameId}`);
     };
 

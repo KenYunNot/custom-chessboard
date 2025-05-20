@@ -22,9 +22,9 @@ const PlayGame = () => {
   React.useEffect(() => {
     if (!user) return;
 
-    const sessionId = localStorage.getItem('sessionId');
-    if (sessionId) {
-      socket.auth = { userId: user?.id, sessionId };
+    const gameId = localStorage.getItem('gameId');
+    if (gameId) {
+      socket.auth = { userId: user?.id, gameId };
       socket.connect();
     } else {
       navigate('/play');
@@ -36,7 +36,7 @@ const PlayGame = () => {
 
     const onConnectError = (error: Error) => {
       toast.error(error.message);
-      localStorage.removeItem('sessionId');
+      localStorage.removeItem('gameId');
       navigate('/play');
     };
 
@@ -54,7 +54,11 @@ const PlayGame = () => {
 
     socket.emit('play-game', gameId);
 
-    const onAlreadyInGame = (gameId: string) => {
+    const onInvalidGame = () => {
+      navigate('/play');
+    };
+
+    const onNotYourGame = (gameId: string) => {
       navigate(`/play/${gameId}`);
     };
 
@@ -106,7 +110,8 @@ const PlayGame = () => {
     };
 
     socket.on('session', onSession);
-    socket.on('already-in-game', onAlreadyInGame);
+    socket.on('invalid-game', onInvalidGame);
+    socket.on('not-your-game', onNotYourGame);
     socket.on('move', onMove);
     socket.on('invalid-move', onInvalidMove);
     socket.on('checkmate', onCheckmate);
@@ -114,7 +119,8 @@ const PlayGame = () => {
 
     return () => {
       socket.off('session');
-      socket.off('already-in-game');
+      socket.off('invalid-game');
+      socket.off('not-your-game');
       socket.off('move');
       socket.off('invalid-move');
       socket.off('checkmate');
