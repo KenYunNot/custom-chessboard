@@ -65,9 +65,7 @@ const CreateGameDialog = ({ isConnected }: { isConnected: boolean }) => {
       <DialogContent className='bg-body-background text-white border-body-background'>
         <DialogHeader>
           <DialogTitle className='font-semibold text-lg'>Play a game</DialogTitle>
-          <DialogDescription>
-            {isConnected ? 'Finding a game...' : 'Select a time control'}
-          </DialogDescription>
+          <DialogDescription>{isConnected ? 'Finding a game...' : 'Select a time control'}</DialogDescription>
         </DialogHeader>
         <div className='w-full'>
           <div
@@ -93,8 +91,7 @@ const CreateGameDialog = ({ isConnected }: { isConnected: boolean }) => {
                           'w-1/3 py-3 bg-neutral-700 font-semibold rounded-sm hover:bg-neutral-600 hover:cursor-pointer',
                           {
                             'inset-shadow-[0_0_0_2px] inset-shadow-accent-primary':
-                              timeControl.time === option.time &&
-                              timeControl.increment === option.increment,
+                              timeControl.time === option.time && timeControl.increment === option.increment,
                           }
                         )}
                         onClick={() => setTimeControl(option)}
